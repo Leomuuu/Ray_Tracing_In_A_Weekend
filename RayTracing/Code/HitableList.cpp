@@ -14,3 +14,8 @@ bool HitableList::Hit(Ray& ray, double t_min, double t_max, Hit_Record& hit_reco
 	}
 	return hit_anything;
 }
+
+void HitableList::AddHitables(HitableObject* object)
+{
+	hitables.push_back(object);
+}

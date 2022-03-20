@@ -14,6 +14,6 @@ public:
 	}
 	virtual bool Hit(Ray& ray, double t_min, double t_max,
 		Hit_Record& hit_record)  override;
-
+	void AddHitables(HitableObject* object);
 
 };

@@ -1,6 +1,8 @@
 #pragma once
 #include "Ray.h"
 
+class Material;
+
 //相交点位置与方向
 struct Hit_Record {
 	double t=0;

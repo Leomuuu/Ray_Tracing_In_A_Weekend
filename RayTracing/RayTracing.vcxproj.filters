@@ -25,6 +25,18 @@
     <Filter Include="源文件\Hitables">
       <UniqueIdentifier>{0c0ff5e1-d79e-46ee-8cd0-ffa571474393}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Camera">
+      <UniqueIdentifier>{5972c149-02a2-4cb6-9530-79d58c91b253}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Camera">
+      <UniqueIdentifier>{8d87bd12-a659-4c47-a440-77a33b1f7fc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Material">
+      <UniqueIdentifier>{ed6fcaac-d894-4c44-bcef-3b78ca61e568}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Material">
+      <UniqueIdentifier>{c8e71259-ee12-43a2-9ff5-764e81ad9d63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RayTracing.cpp">
@@ -42,6 +54,9 @@
     <ClCompile Include="Code\HitableList.cpp">
       <Filter>源文件\Hitables</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Camera.cpp">
+      <Filter>源文件\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Ray.h">
@@ -58,6 +73,18 @@
     </ClInclude>
     <ClInclude Include="Code\HitableList.h">
       <Filter>头文件\Hitables</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Camera.h">
+      <Filter>头文件\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Material.h">
+      <Filter>头文件\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Lambertian.h">
+      <Filter>头文件\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Metal.h">
+      <Filter>头文件\Material</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
