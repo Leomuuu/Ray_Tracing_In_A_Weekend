@@ -158,6 +158,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Camera.h" />
+    <ClInclude Include="Code\Dielectric.h" />
+    <ClInclude Include="Code\Diffuse_Light.h" />
     <ClInclude Include="Code\Hitable.h" />
     <ClInclude Include="Code\HitableList.h" />
     <ClInclude Include="Code\Lambertian.h" />
@@ -166,6 +168,7 @@
     <ClInclude Include="Code\Ray.h" />
     <ClInclude Include="Code\Sphere.h" />
     <ClInclude Include="Code\Vector3.h" />
+    <ClInclude Include="Code\Texture.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

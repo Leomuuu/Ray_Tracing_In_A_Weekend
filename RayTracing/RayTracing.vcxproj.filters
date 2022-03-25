@@ -37,6 +37,12 @@
     <Filter Include="源文件\Material">
       <UniqueIdentifier>{c8e71259-ee12-43a2-9ff5-764e81ad9d63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\Texture">
+      <UniqueIdentifier>{8894899b-872e-4fcc-85ea-b66ce107726d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Texture">
+      <UniqueIdentifier>{ab0edae0-46f8-4539-8acb-7ebe3f0152b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RayTracing.cpp">
@@ -84,6 +90,15 @@
       <Filter>头文件\Material</Filter>
     </ClInclude>
     <ClInclude Include="Code\Metal.h">
+      <Filter>头文件\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Dielectric.h">
+      <Filter>头文件\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Texture.h">
+      <Filter>头文件\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Diffuse_Light.h">
       <Filter>头文件\Material</Filter>
     </ClInclude>
   </ItemGroup>

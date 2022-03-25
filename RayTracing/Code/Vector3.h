@@ -28,8 +28,11 @@ public:
 
 	Vector3 operator + (Vector3 v);
 	Vector3 operator - (Vector3 v);
+	Vector3 operator -();
 	Vector3 operator = (Vector3 v);
 	Vector3 operator * (double d);
+	Vector3 operator * (Vector3 v);
+	Vector3 operator /(double d);
 	bool operator ==(Vector3 v);
 	bool operator !=(Vector3 v);
 
@@ -39,8 +42,10 @@ public:
 	Vector3 Cross(Vector3 v);
 
 	double Length();
+	//自身变为单位向量
 	Vector3 NormalNize();
-
+	//返回单位向量
+	Vector3 UnitVector();
 
 
 

@@ -1,5 +1,5 @@
+#include <cmath>
 #include "Vector3.h"
-#include "cmath"
 
 Vector3 Vector3::operator+(Vector3 v)
 {
@@ -33,6 +33,21 @@ Vector3 Vector3::operator*(double d)
 	return ret;
 }
 
+Vector3 Vector3::operator-()
+{
+	return Vector3(-a, -b, -c);
+}
+
+Vector3 Vector3::operator/(double d)
+{
+	return Vector3(a / d, b / d, c / d);
+}
+
+Vector3 Vector3::operator*(Vector3 v)
+{
+	return Vector3(a * v.a, b * v.b, c * v.c);
+}
+
 double Vector3::Dot(Vector3 v)
 {
 	return a * v.X() + b * v.Y() + c * v.Z();
@@ -57,4 +72,10 @@ Vector3 Vector3::NormalNize()
 	b = b / sum;
 	c = c / sum;
 	return *this;
+}
+Vector3 Vector3::UnitVector()
+{
+	double len = Length();
+	return Vector3(a / len,b/len,c/len);
+
 }

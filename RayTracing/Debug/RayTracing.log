@@ -1,6 +1,3 @@
-﻿  HitableList.cpp
-C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\Code\HitableList.cpp(8,20): warning C4018: “<”: 有符号/无符号不匹配
-  RayTracing.cpp
-C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\RayTracing.cpp(20,11): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-  正在生成代码...
+﻿  RayTracing.cpp
+C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\RayTracing.cpp(46,12): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
   RayTracing.vcxproj -> C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\Debug\RayTracing.exe

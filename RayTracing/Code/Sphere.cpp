@@ -14,14 +14,16 @@ bool Sphere::Hit(Ray& ray, double t_min, double t_max, Hit_Record& hit_record)
 		if (temp<t_max && temp >t_min) {
 			hit_record.t = temp;
 			hit_record.HitPoint = ray.Point(temp);
-			hit_record.NormalDirection = (hit_record.HitPoint - center).NormalNize();
+			hit_record.NormalDirection = (hit_record.HitPoint - center).UnitVector();
+			hit_record.mat_ptr = material;
 			return true;
 		}
 		temp= (-b + sqrt(b * b - a * c)) / a;
 		if (temp<t_max && temp >t_min) {
 			hit_record.t = temp;
 			hit_record.HitPoint = ray.Point(temp);
-			hit_record.NormalDirection = (hit_record.HitPoint - center).NormalNize();
+			hit_record.NormalDirection = (hit_record.HitPoint - center).UnitVector();
+			hit_record.mat_ptr = material;
 			return true;
 		}
 	

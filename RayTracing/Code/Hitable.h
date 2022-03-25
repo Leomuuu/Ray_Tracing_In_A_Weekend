@@ -1,5 +1,6 @@
 #pragma once
 #include "Ray.h"
+#include "Material.h"
 
 class Material;
 
@@ -8,6 +9,9 @@ struct Hit_Record {
 	double t=0;
 	Vector3 HitPoint;
 	Vector3 NormalDirection;
+	Material* mat_ptr=nullptr;
+	double u = 0;
+	double v = 0;
 };
 
 //可与光线相交物体
