@@ -10,7 +10,6 @@ private:
 	Material* material;
 
 public:
-	Sphere() :radius(0) {}
 
 	Sphere(Vector3 cen, double r,Material* m) :center(cen), radius(r),material(m) {}
 

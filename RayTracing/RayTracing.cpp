@@ -3,6 +3,9 @@
 #include <limits.h>
 #include <float.h>
 #include "Code/Sphere.h"
+#include "Code/Cylinder.h"
+#include "Code/Triangle.h"
+#include "Code/Quadrilateral.h"
 #include "Code/HitableList.h"
 #include "Code/Vector3.h"
 #include "Code/Lambertian.h"
@@ -31,7 +34,7 @@ Vector3 color(Ray r, HitableObject* world,int depth) {
 		/*Vector3 unit_direction = r.Direction().UnitVector();
 		float t = (unit_direction.Y() + 1) * 0.5;
 		return Vector3(1, 1, 1)* (1.0 - t) + Vector3(0.5, 0.7, 1.0) * t;*/
-		return Vector3(0.001,0.001,0.001);
+		return Vector3(ZEROLIGHT, ZEROLIGHT, ZEROLIGHT);
 	}
 }
 
@@ -54,35 +57,56 @@ int main()
 
 	Texture* checker = new Checker_Texture(new Constant_Texture(Vector3(0.2, 0.3, 0.1)),
 		new Constant_Texture(Vector3(0.9, 0.9, 0.9)));
-	Texture* checker2 = new Constant_Texture(Vector3(0.6, 0.3, 0.1));
+	Texture* checker4 = new Checker_Texture(new Constant_Texture(Vector3(0.7, 0.2, 0.2)),
+		new Constant_Texture(Vector3(0.9, 0.9, 0.9)));
+	Texture* checker5 = new Checker_Texture(new Constant_Texture(Vector3(1, 0.84, 0)),
+		new Constant_Texture(Vector3(0.9, 0.9, 0.9)));
+	Texture* checker2 = new Constant_Texture(Vector3(0.1, 0.1, 0.5));
+	Texture* checker3 = new Constant_Texture(Vector3(0.2, 0.2, 0.8));
+	Texture* checker6 = new Constant_Texture(Vector3(0.33, 1, 0.62));
+	Texture* checker7 = new Constant_Texture(Vector3(1, 0, 0));
+	Texture* checker8 = new Constant_Texture(Vector3(0, 1, 0));
+	Texture* checker9 = new Constant_Texture(Vector3(0, 0, 1));
 
-	List[1] = new Sphere(Vector3(0, -100.5, -1), 100,new Lambertian(checker));
-	
-	List[2] = new Sphere(Vector3(0, 0, -1), 0.5, new Metal(Vector3(0.8, 0.5, 0.4),0.2));
-	List[3] = new Sphere(Vector3(0, -100.5, -1), 100, new Metal(Vector3(0.8, 0.8, 0.0), 0.2));
-	List[4] = new Sphere(Vector3(-1, 0, -1), 0.5, new Metal(Vector3(0.2, 0.2, 0.4), 0.2));
-	
-	List[5] = new Sphere(Vector3(-1, 0, -1), 0.5, new Dielectric(1.5));
 
-	List[6]=  new Sphere(Vector3(0, -2, -1), 1, new Lambertian(checker));
-	List[7] = new Sphere(Vector3(0, 10, 0), 10, new Lambertian(checker));
-	List[8] = new Sphere(Vector3(0, 3, -1),1, new Diffuse_Light(new Constant_Texture(Vector3(0.9,0.9,0.9))));
+	List[1]= new Sphere(Vector3(2, 1.5, 1), 0.5, new Lambertian(checker));
+	List[2] = new Sphere(Vector3(1, 1.5, 1), 0.2, new Metal(Vector3(0.5, 0.2, 0.5), 0));
 
-	List[9]= new Sphere(Vector3(0, -101, 1), 100, new Lambertian(checker));
-	List[10]= new Sphere(Vector3(0, 0, 1), 1, new Lambertian(checker));
-	List[11]= new Sphere(Vector3(0, 3.5, 1), 1.5, new Diffuse_Light(new Constant_Texture(Vector3(1, 1, 1))));
-	List[12] = new Sphere(Vector3(3, 0, 1), 1, new Diffuse_Light(new Constant_Texture(Vector3(1, 1, 1))));
+	List[3] = new Triangle(Vector3(-0.5, 0.5, 1), Vector3(-1.5, 2, 2.5), Vector3(-2.5, 0.5, 1), new Lambertian(checker6));
+	List[4] = new Triangle(Vector3(-0.5, 0.5, 1), Vector3(-1.2, 1, 1), Vector3(-1.5, 2, 2.5), new Lambertian(checker8));
 
+	List[5] = new Quadrilateral(Vector3(-0.5, 0.5, 1), Vector3(-1.5, 2, 2.5), Vector3(-2.5, 0.5, 1), Vector3(-1.2, 1, 1),
+		new Lambertian(checker6));
+
+	List[10] = new Cylinder(2, 0, 0.2, -1.1, -1.1, new Diffuse_Light(new Constant_Texture(Vector3(1, 1, 1))),
+		new Diffuse_Light(new Constant_Texture(Vector3(1, 1, 1))));
+	List[11] = new Cylinder(0, 1, 1, -1.5, -0.5, new Lambertian(checker2), new Lambertian(checker3));
+
+	List[12]= new Sphere(Vector3(0, 3.5, 1), 1.5, new Diffuse_Light(new Constant_Texture(Vector3(1, 1, 1))));
+	List[13] = new Sphere(Vector3(3, 0, 1), 1, new Metal(Vector3(0.5, 0.5, 0.5), 0));
+	List[14] = new Sphere(Vector3(2, -1, 0), 0.3, new Diffuse_Light(new Constant_Texture(Vector3(1, 1, 1))));
+	List[15] = new Sphere(Vector3(-3, -1, 1), 1, new Lambertian(checker4));
+	List[16] = new Sphere(Vector3(0, -104, 1), 100, new Lambertian(checker5));
+	List[17] = new Sphere(Vector3(-1.2, 1.5, 0), 0.5, new Dielectric(0.9));
 
 	HitableList* world = new HitableList();
-	world->AddHitables(List[9]);
-	world->AddHitables(List[10]);
+	world->AddHitables(List[1]);
+	world->AddHitables(List[2]);
+	world->AddHitables(List[5]);
+	/*world->AddHitables(List[3]);
+	world->AddHitables(List[4]);*/
+
 	world->AddHitables(List[11]);
 	world->AddHitables(List[12]);
+	world->AddHitables(List[13]);
+	world->AddHitables(List[10]);
+	world->AddHitables(List[15]);
+	world->AddHitables(List[16]);
+	world->AddHitables(List[17]);
 	//random_scene(world);
 
 
-	Vector3 lookfrom(0, 0, -5);
+	Vector3 lookfrom(0, 1, -5);
 	Vector3 lookat(0, 0, 0);
 	/*NormalCamera camera(lookfrom, lookat, Vector3(0, 1, 0), 50,
 		double(nx) / double(ny));*/

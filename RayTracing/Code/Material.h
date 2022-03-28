@@ -6,6 +6,7 @@
 #include "Vector3.h"
 
 #define RANDDOUBLE01  ((double)rand() / (RAND_MAX+1.0))  // [0.1)
+#define ZEROLIGHT 0
 
 struct  Hit_Record;
 
@@ -50,7 +51,7 @@ public:
 	}
 	//发射光线
 	virtual Vector3 Emitted(double u, double v, Vector3& p) {
-		return Vector3(0, 0, 0);
+		return Vector3(ZEROLIGHT, ZEROLIGHT, ZEROLIGHT);
 	}
 
 

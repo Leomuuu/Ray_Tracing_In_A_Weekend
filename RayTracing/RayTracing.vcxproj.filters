@@ -63,6 +63,15 @@
     <ClCompile Include="Code\Camera.cpp">
       <Filter>源文件\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="Code\Cylinder.cpp">
+      <Filter>源文件\Hitables</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Triangle.cpp">
+      <Filter>源文件\Hitables</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\Quadrilateral.cpp">
+      <Filter>源文件\Hitables</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Ray.h">
@@ -100,6 +109,15 @@
     </ClInclude>
     <ClInclude Include="Code\Diffuse_Light.h">
       <Filter>头文件\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Cylinder.h">
+      <Filter>头文件\Hitables</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Triangle.h">
+      <Filter>头文件\Hitables</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\Quadrilateral.h">
+      <Filter>头文件\Hitables</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

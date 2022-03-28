@@ -150,14 +150,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Code\Camera.cpp" />
+    <ClCompile Include="Code\Cylinder.cpp" />
     <ClCompile Include="Code\HitableList.cpp" />
+    <ClCompile Include="Code\Quadrilateral.cpp" />
     <ClCompile Include="Code\Ray.cpp" />
     <ClCompile Include="Code\Sphere.cpp" />
+    <ClCompile Include="Code\Triangle.cpp" />
     <ClCompile Include="Code\Vector3.cpp" />
     <ClCompile Include="RayTracing.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Code\Camera.h" />
+    <ClInclude Include="Code\Cylinder.h" />
     <ClInclude Include="Code\Dielectric.h" />
     <ClInclude Include="Code\Diffuse_Light.h" />
     <ClInclude Include="Code\Hitable.h" />
@@ -165,8 +169,10 @@
     <ClInclude Include="Code\Lambertian.h" />
     <ClInclude Include="Code\Material.h" />
     <ClInclude Include="Code\Metal.h" />
+    <ClInclude Include="Code\Quadrilateral.h" />
     <ClInclude Include="Code\Ray.h" />
     <ClInclude Include="Code\Sphere.h" />
+    <ClInclude Include="Code\Triangle.h" />
     <ClInclude Include="Code\Vector3.h" />
     <ClInclude Include="Code\Texture.h" />
   </ItemGroup>
