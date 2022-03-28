@@ -48,8 +48,8 @@ int main()
 
 	srand(time(0));
 
-	int nx = 200;
-	int ny = 100;
+	int nx = 1000;
+	int ny = 500;
 	int ns = 25;
 	f << "P3\n" << nx << " " << ny << "\n255\n";
 
