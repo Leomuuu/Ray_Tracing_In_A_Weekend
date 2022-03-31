@@ -44,7 +44,7 @@ using namespace std;
 int main()
 {
 	ofstream f;
-	f.open("test.ppm");
+	f.open("test2.ppm");
 
 	srand(time(0));
 
@@ -64,12 +64,12 @@ int main()
 	Texture* checker2 = new Constant_Texture(Vector3(0.1, 0.1, 0.5));
 	Texture* checker3 = new Constant_Texture(Vector3(0.2, 0.2, 0.8));
 	Texture* checker6 = new Constant_Texture(Vector3(0.33, 1, 0.62));
-	Texture* checker7 = new Constant_Texture(Vector3(1, 0, 0));
-	Texture* checker8 = new Constant_Texture(Vector3(0, 1, 0));
-	Texture* checker9 = new Constant_Texture(Vector3(0, 0, 1));
+	Texture* checker7 = new Constant_Texture(Vector3(0.1, 0, 0));
+	Texture* checker8 = new Constant_Texture(Vector3(0, 0.1, 0));
+	Texture* checker9 = new Constant_Texture(Vector3(0, 0, 0.1));
+	Texture* checker10 = new Constant_Texture(Vector3(0.1, 0.1, 0.1));
 
-
-	List[1]= new Sphere(Vector3(2, 1.5, 1), 0.5, new Lambertian(checker));
+	/*List[1]= new Sphere(Vector3(2, 1.5, 1), 0.5, new Lambertian(checker));
 	List[2] = new Sphere(Vector3(1, 1.5, 1), 0.2, new Metal(Vector3(0.5, 0.2, 0.5), 0));
 
 	List[3] = new Triangle(Vector3(-0.5, 0.5, 1), Vector3(-1.5, 2, 2.5), Vector3(-2.5, 0.5, 1), new Lambertian(checker6));
@@ -87,30 +87,59 @@ int main()
 	List[14] = new Sphere(Vector3(2, -1, 0), 0.3, new Diffuse_Light(new Constant_Texture(Vector3(1, 1, 1))));
 	List[15] = new Sphere(Vector3(-3, -1, 1), 1, new Lambertian(checker4));
 	List[16] = new Sphere(Vector3(0, -104, 1), 100, new Lambertian(checker5));
-	List[17] = new Sphere(Vector3(-1.2, 1.5, 0), 0.5, new Dielectric(0.9));
+	List[17] = new Sphere(Vector3(-1.2, 1.5, 0), 0.5, new Dielectric(0.9));*/
+
+	List[0] = new Triangle(Vector3(10, -5, 10), Vector3(-10, -5, 10), Vector3(10, -5, -1), new Lambertian(checker7));
+	List[1] = new Triangle(Vector3(-10, -5, 10),Vector3(-10, -5, -1), Vector3(10, -5, -1) , new Lambertian(checker7));
+	List[2] = new Triangle(Vector3(-10, -5, 10), Vector3(-10, 5, -1),Vector3(-10, -5, -1),new Lambertian(checker8));
+	List[3] = new Triangle(Vector3(-10, -5, 10), Vector3(-10, 5, 10), Vector3(-10, 5, -1), new Lambertian(checker8));
+	List[4] = new Triangle(Vector3(10, -5, 10),Vector3(10, -5, -1) ,Vector3(10, 5, 10) , new Lambertian(checker9));
+	List[5] = new Triangle(Vector3(10, -5, -1), Vector3(10, 5, -1),Vector3(10, 5, 10) , new Lambertian(checker9));
+	List[5] = new Triangle(Vector3(10, -5, -1), Vector3(10, 5, -1), Vector3(10, 5, 10), new Lambertian(checker9));
+	List[6] = new Triangle(Vector3(10, -5, 10), Vector3(10, 5, 10),Vector3(-10, -5, 10) , new Lambertian(checker10));
+	List[7] = new Triangle(Vector3(10, 5, 10),Vector3(-10, 5, 10) ,Vector3(-10, -5, 10) , new Lambertian(checker10));
+	
+	List[8] = new Sphere(Vector3(0, 10, 6), 3, new Diffuse_Light(new Constant_Texture(Vector3(1, 1, 1))));
+	List[9] = new Sphere(Vector3(-8, -3, 8), 1, new Diffuse_Light(new Constant_Texture(Vector3(1, 1, 1))));
+
+	List[10] = new Sphere(Vector3(8, -3, 8), 1, new Lambertian(checker));
+	List[11] = new Sphere(Vector3(-5, -3, 8), 2, new Lambertian(checker5));
+
 
 	HitableList* world = new HitableList();
+	world->AddHitables(List[0]);
 	world->AddHitables(List[1]);
 	world->AddHitables(List[2]);
+	world->AddHitables(List[3]);
+	world->AddHitables(List[4]);
 	world->AddHitables(List[5]);
-	/*world->AddHitables(List[3]);
-	world->AddHitables(List[4]);*/
+	world->AddHitables(List[6]);
+	world->AddHitables(List[7]);
 
-	world->AddHitables(List[11]);
-	world->AddHitables(List[12]);
-	world->AddHitables(List[13]);
+	world->AddHitables(List[8]);
+	world->AddHitables(List[9]);
+
 	world->AddHitables(List[10]);
-	world->AddHitables(List[15]);
-	world->AddHitables(List[16]);
-	world->AddHitables(List[17]);
+	world->AddHitables(List[11]);
+
+	//world->AddHitables(List[1]);
+	//world->AddHitables(List[2]);
+	//world->AddHitables(List[5]);
+	//world->AddHitables(List[11]);
+	//world->AddHitables(List[12]);
+	//world->AddHitables(List[13]);
+	//world->AddHitables(List[10]);
+	//world->AddHitables(List[15]);
+	//world->AddHitables(List[16]);
+	//world->AddHitables(List[17]);
 	//random_scene(world);
 
 
-	Vector3 lookfrom(0, 1, -5);
-	Vector3 lookat(0, 0, 0);
+	Vector3 lookfrom(0, 1, -1);
+	Vector3 lookat(0, 1, 0);
 	/*NormalCamera camera(lookfrom, lookat, Vector3(0, 1, 0), 50,
 		double(nx) / double(ny));*/
-	DefocusBlurCamera camera(lookfrom, lookat,Vector3(0, 1, 0),50,
+	DefocusBlurCamera camera(lookfrom, lookat,Vector3(0, 1, 0),90,
 		double(nx)/double(ny),0,(lookfrom-lookat).Length());
 
 

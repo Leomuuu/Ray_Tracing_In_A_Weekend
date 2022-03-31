@@ -20,7 +20,7 @@ Vector3 Vector3::operator=(Vector3 v)
 }
 bool Vector3::operator==(Vector3 v)
 {
-	return (a == v.X() && b == v.Y() && c == v.Z());
+	return ((a- v.X())< 1e-20 && (b - v.Y())<1e-20 && (c - v.Z())<1e-20);
 }
 bool Vector3::operator!=(Vector3 v)
 {

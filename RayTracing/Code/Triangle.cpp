@@ -1,4 +1,6 @@
 #include "Triangle.h"
+#include <algorithm>
+
 
 bool Triangle::Hit(Ray& ray, double t_min, double t_max, Hit_Record& hit_record)
 {
@@ -16,17 +18,24 @@ bool Triangle::Hit(Ray& ray, double t_min, double t_max, Hit_Record& hit_record)
 
 	Vector3 hitpoint = ray.Point(temp);
 
-	Vector3 p1p = hitpoint - point1 ;
+	if (hitpoint.X() > std::max({ point1.X(),point2.X(),point3.X() })) return false;
+	if (hitpoint.X() < std::min({ point1.X(),point2.X(),point3.X() })) return false;
+	if (hitpoint.Y() > std::max({ point1.Y(), point2.Y(), point3.Y() })) return false;
+	if (hitpoint.Y() < std::min({ point1.Y(), point2.Y(), point3.Y() })) return false;
+	if (hitpoint.Z() > std::max({ point1.Z(), point2.Z(), point3.Z() })) return false;
+	if (hitpoint.Z() < std::min({ point1.Z(), point2.Z(), point3.Z() })) return false;
+
+	Vector3 p1p = hitpoint - point1;
 	Vector3 p2p = hitpoint - point2;
 	Vector3 p3p = hitpoint - point3;
 	Vector3 t1 = (point2 - point1).Cross(p1p).UnitVector();
 	Vector3 t2 = (point3 - point2).Cross(p2p).UnitVector();
 	Vector3 t3 = (point1 - point3).Cross(p3p).UnitVector();
 
-	
-	if (t1.Dot(normal) < 0) return false;
-	if (t2.Dot(normal) < 0) return false;
-	if (t3.Dot(normal) < 0) return false;
+
+	if (t1.Dot(normal) <= 0) return false;
+	if (t2.Dot(normal) <= 0) return false;
+	if (t3.Dot(normal) <= 0) return false;
 
 	//在三角形内
 	hit_record.t = temp;

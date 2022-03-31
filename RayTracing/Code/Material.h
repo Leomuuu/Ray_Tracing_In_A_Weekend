@@ -17,15 +17,9 @@ public:
 	Vector3 Reflect(Vector3 v, Vector3 n) {
 		return v - n *(v.Dot(n)) * 2;
 	}
-	//在半球体随机选一个位置
+	//在球体内随机选一个位置
 	Vector3 Random_in_unit_sphere() {
 		Vector3 p;
-		
-		
-		/*do {
-			p = (Vector3(RANDDOUBLE01, RANDDOUBLE01, RANDDOUBLE01)*2
-				- Vector3(1, 1, 1));
-		} while (p.Length() >= 1);*/
 
 		double a = RANDDOUBLE01;
 		double b = RANDDOUBLE01;
