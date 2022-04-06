@@ -1,5 +1,6 @@
-#include "Triangle.h"
 #include <algorithm>
+#include "Triangle.h"
+
 
 
 bool Triangle::Hit(Ray& ray, double t_min, double t_max, Hit_Record& hit_record)
@@ -33,9 +34,10 @@ bool Triangle::Hit(Ray& ray, double t_min, double t_max, Hit_Record& hit_record)
 	Vector3 t3 = (point1 - point3).Cross(p3p).UnitVector();
 
 
-	if (t1.Dot(normal) <= 0) return false;
-	if (t2.Dot(normal) <= 0) return false;
-	if (t3.Dot(normal) <= 0) return false;
+	if (t1.Dot(normal) < 0) return false;
+	if (t2.Dot(normal) < 0) return false;
+	if (t3.Dot(normal) < 0) return false;
+
 
 	//在三角形内
 	hit_record.t = temp;
@@ -45,4 +47,18 @@ bool Triangle::Hit(Ray& ray, double t_min, double t_max, Hit_Record& hit_record)
 	hit_record.mat_ptr = material;
 	return true;
 	
+}
+
+bool Triangle::BoundingBox(double t0, double t1, AABB& aabb)
+{
+	Vector3 vmin(ffmin(ffmin(point1.X(),point2.X()),point3.X()),
+		ffmin(ffmin(point1.Y(), point2.Y()), point3.Y()),
+		ffmin(ffmin(point1.Z(), point2.Z()), point3.Z()));
+
+	Vector3 vmax(ffmax(ffmax(point1.X(), point2.X()), point3.X()),
+		ffmax(ffmax(point1.Y(), point2.Y()), point3.Y()),
+		ffmax(ffmax(point1.Z(), point2.Z()), point3.Z()));
+
+	aabb = AABB(vmin, vmax);
+	return true;
 }

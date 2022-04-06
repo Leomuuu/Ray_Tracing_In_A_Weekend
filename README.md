@@ -3,6 +3,6 @@ The Assignment of Physically Based Rendering
 
 
 
-![10](.\Pic\10.JPG)
+![](.\Pic\10.JPG)
 
-![11](.\Pic\11.JPG)
+![](.\Pic\11.JPG)

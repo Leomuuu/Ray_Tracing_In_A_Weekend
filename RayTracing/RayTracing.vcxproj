@@ -149,6 +149,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Code\AABB.cpp" />
+    <ClCompile Include="Code\BVHNode.cpp" />
     <ClCompile Include="Code\Camera.cpp" />
     <ClCompile Include="Code\Cylinder.cpp" />
     <ClCompile Include="Code\HitableList.cpp" />
@@ -160,6 +162,8 @@
     <ClCompile Include="RayTracing.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Code\AABB.h" />
+    <ClInclude Include="Code\BVHNode.h" />
     <ClInclude Include="Code\Camera.h" />
     <ClInclude Include="Code\Cylinder.h" />
     <ClInclude Include="Code\Dielectric.h" />

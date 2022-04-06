@@ -30,3 +30,11 @@ bool Sphere::Hit(Ray& ray, double t_min, double t_max, Hit_Record& hit_record)
 	}
 	return false;
 }
+
+bool Sphere::BoundingBox(double t0, double t1, AABB& aabb)
+{
+	Vector3 v1 = center - Vector3(radius, radius, radius);
+	Vector3 v2 = center + Vector3(radius, radius, radius);
+	aabb = AABB(v1,v2);
+	return true;
+}

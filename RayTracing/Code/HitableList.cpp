@@ -19,3 +19,23 @@ void HitableList::AddHitables(HitableObject* object)
 {
 	hitables.push_back(object);
 }
+
+bool HitableList::BoundingBox(double t0, double t1, AABB& aabb)
+{
+	if (hitables.size() < 1) return false;
+
+	AABB tempbox;
+	bool firsttrue = hitables[0]->BoundingBox(t0, t1, tempbox);
+	if (!firsttrue) return false;
+	aabb = tempbox;
+
+	for (int i = 1; i < hitables.size(); ++i) {
+		if (hitables[i]->BoundingBox(t0, t1, tempbox)) {
+			aabb = aabb.SurroundingBox(tempbox);
+		}
+		else return false;
+	}
+
+	return true;
+
+}

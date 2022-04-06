@@ -48,6 +48,17 @@ Vector3 Vector3::operator*(Vector3 v)
 	return Vector3(a * v.a, b * v.b, c * v.c);
 }
 
+double Vector3::operator[](int index)
+{
+	switch (index)
+	{
+		case 0: return a;
+		case 1:return b;
+		default:
+		return c;
+	}
+}
+
 double Vector3::Dot(Vector3 v)
 {
 	return a * v.X() + b * v.Y() + c * v.Z();

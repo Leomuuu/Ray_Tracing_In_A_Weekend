@@ -33,6 +33,7 @@ public:
 	Vector3 operator * (double d);
 	Vector3 operator * (Vector3 v);
 	Vector3 operator /(double d);
+	double operator [](int index);
 	bool operator ==(Vector3 v);
 	bool operator !=(Vector3 v);
 

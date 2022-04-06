@@ -1,6 +1,7 @@
-#include "Cylinder.h"
 #include <algorithm>
 #include <cmath>
+#include "Cylinder.h"
+
 
 bool Cylinder::Hit(Ray& ray, double t_min, double t_max, Hit_Record& hit_record)
 {

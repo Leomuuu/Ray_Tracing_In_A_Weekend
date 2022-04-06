@@ -43,6 +43,12 @@
     <Filter Include="源文件\Texture">
       <UniqueIdentifier>{ab0edae0-46f8-4539-8acb-7ebe3f0152b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\BoundingVolume">
+      <UniqueIdentifier>{f20341e4-4f4b-4add-aae7-b60035c934f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\BoundingVolume">
+      <UniqueIdentifier>{e5a8493b-758d-45c4-9055-5bcf34c4bfc2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RayTracing.cpp">
@@ -70,6 +76,12 @@
       <Filter>源文件\Hitables</Filter>
     </ClCompile>
     <ClCompile Include="Code\Quadrilateral.cpp">
+      <Filter>源文件\Hitables</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\AABB.cpp">
+      <Filter>源文件\BoundingVolume</Filter>
+    </ClCompile>
+    <ClCompile Include="Code\BVHNode.cpp">
       <Filter>源文件\Hitables</Filter>
     </ClCompile>
   </ItemGroup>
@@ -117,6 +129,12 @@
       <Filter>头文件\Hitables</Filter>
     </ClInclude>
     <ClInclude Include="Code\Quadrilateral.h">
+      <Filter>头文件\Hitables</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\AABB.h">
+      <Filter>头文件\BoundingVolume</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\BVHNode.h">
       <Filter>头文件\Hitables</Filter>
     </ClInclude>
   </ItemGroup>

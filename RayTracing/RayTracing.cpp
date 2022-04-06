@@ -14,6 +14,7 @@
 #include "Code/Camera.h"
 #include "Code/Texture.h"
 #include "Code/Diffuse_Light.h"
+#include "Code/BVHNode.h"
 
 void random_scene(HitableList* world);
 
@@ -44,12 +45,12 @@ using namespace std;
 int main()
 {
 	ofstream f;
-	f.open("test2.ppm");
+	f.open("test3.ppm");
 
 	srand(time(0));
 
-	int nx = 1000;
-	int ny = 500;
+	int nx = 200;
+	int ny = 100;
 	int ns = 25;
 	f << "P3\n" << nx << " " << ny << "\n255\n";
 
@@ -97,7 +98,7 @@ int main()
 	List[5] = new Triangle(Vector3(10, -5, -1), Vector3(10, 5, -1),Vector3(10, 5, 10) , new Lambertian(checker9));
 	List[5] = new Triangle(Vector3(10, -5, -1), Vector3(10, 5, -1), Vector3(10, 5, 10), new Lambertian(checker9));
 	List[6] = new Triangle(Vector3(10, -5, 10), Vector3(10, 5, 10),Vector3(-10, -5, 10) , new Lambertian(checker10));
-	List[7] = new Triangle(Vector3(10, 5, 10),Vector3(-10, 5, 10) ,Vector3(-10, -5, 10) , new Lambertian(checker10));
+	List[7] = new Triangle(Vector3(10, 5, 10),Vector3(-10, 5, 10) ,Vector3(-10, -5, 10), new Lambertian(checker10));
 	
 	List[8] = new Sphere(Vector3(0, 10, 6), 3, new Diffuse_Light(new Constant_Texture(Vector3(1, 1, 1))));
 	List[9] = new Sphere(Vector3(-8, -3, 8), 1, new Diffuse_Light(new Constant_Texture(Vector3(1, 1, 1))));
@@ -134,6 +135,7 @@ int main()
 	//world->AddHitables(List[17]);
 	//random_scene(world);
 
+	BVHNode* bvhroot = new BVHNode(world);
 
 	Vector3 lookfrom(0, 1, -1);
 	Vector3 lookat(0, 1, 0);
@@ -154,7 +156,8 @@ int main()
 					double v = double(double(j)+z*0.25 + RANDDOUBLE01/4) / double(ny);
 					Ray r = camera.GetRay(u, v);
 					Vector3 p = r.Point(2);
-					col = col + color(r, world, 50);
+					col = col + color(r, bvhroot, 50);
+					//col = col + color(r, world, 50);
 				}
 			}
 

@@ -21,5 +21,6 @@ public:
 	virtual bool Hit(Ray& ray, double t_min, double t_max,
 		Hit_Record& hit_record)  override;
 
+	virtual bool BoundingBox(double t0, double t1, AABB& aabb) override;
 
 };

@@ -1,6 +1,7 @@
 #pragma once
 #include "Ray.h"
 #include "Material.h"
+#include "AABB.h"
 
 class Material;
 
@@ -19,4 +20,6 @@ class HitableObject {
 public:
 	virtual bool Hit( Ray& ray, double t_min, double t_max,
 		Hit_Record& hit_record)  = 0;
+
+	virtual bool BoundingBox(double t0, double t1, AABB& aabb) = 0;
 };
