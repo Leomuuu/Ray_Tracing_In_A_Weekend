@@ -44,6 +44,7 @@ using namespace std;
 
 int main()
 {
+
 	ofstream f;
 	f.open("test3.ppm");
 
@@ -98,7 +99,7 @@ int main()
 	List[5] = new Triangle(Vector3(10, -5, -1), Vector3(10, 5, -1),Vector3(10, 5, 10) , new Lambertian(checker9));
 	List[5] = new Triangle(Vector3(10, -5, -1), Vector3(10, 5, -1), Vector3(10, 5, 10), new Lambertian(checker9));
 	List[6] = new Triangle(Vector3(10, -5, 10), Vector3(10, 5, 10),Vector3(-10, -5, 10) , new Lambertian(checker10));
-	List[7] = new Triangle(Vector3(10, 5, 10),Vector3(-10, 5, 10) ,Vector3(-10, -5, 10), new Lambertian(checker10));
+	List[7] = new Triangle(Vector3(10, 5, 10),Vector3(-10, -5, 10) ,Vector3(-10, 5, 10), new Lambertian(checker10));
 	
 	List[8] = new Sphere(Vector3(0, 10, 6), 3, new Diffuse_Light(new Constant_Texture(Vector3(1, 1, 1))));
 	List[9] = new Sphere(Vector3(-8, -3, 8), 1, new Diffuse_Light(new Constant_Texture(Vector3(1, 1, 1))));
@@ -156,8 +157,8 @@ int main()
 					double v = double(double(j)+z*0.25 + RANDDOUBLE01/4) / double(ny);
 					Ray r = camera.GetRay(u, v);
 					Vector3 p = r.Point(2);
-					col = col + color(r, bvhroot, 50);
-					//col = col + color(r, world, 50);
+					//col = col + color(r, bvhroot, 50);
+					col = col + color(r, world, 50);
 				}
 			}
 
