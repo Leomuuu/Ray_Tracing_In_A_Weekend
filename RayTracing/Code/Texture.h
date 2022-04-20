@@ -4,7 +4,7 @@
 
 class Texture {
 public:
-	virtual Vector3 Value(double u, double v, const Vector3& p)=0;
+	virtual Vector3 Value(float u, float v, const Vector3& p)=0;
 };
 
 
@@ -15,7 +15,7 @@ public:
 	Constant_Texture();
 	Constant_Texture(Vector3 c) :Color(c) {}
 
-	virtual Vector3 Value(double u, double v, const Vector3& p) override{
+	virtual Vector3 Value(float u, float v, const Vector3& p) override{
 		return Color;
 	}
 
@@ -30,8 +30,8 @@ public:
 	Checker_Texture() {}
 	Checker_Texture(Texture* t0,Texture* t1):even(t0),odd(t1) {}
 
-	virtual Vector3 Value(double u, double v, const Vector3& p)override {
-		double sines = sin(10 * p.X()) * sin(10 * p.Y()) * sin(10 * p.Z());
+	virtual Vector3 Value(float u, float v, const Vector3& p)override {
+		float sines = sin(10 * p.X()) * sin(10 * p.Y()) * sin(10 * p.Z());
 		if (sines < 0)
 			return odd->Value(u, v, p);
 		else

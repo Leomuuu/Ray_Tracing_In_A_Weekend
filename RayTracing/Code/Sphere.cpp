@@ -1,16 +1,16 @@
 #include "Sphere.h"
 #include <cmath>
 
-bool Sphere::Hit(Ray& ray, double t_min, double t_max, Hit_Record& hit_record) 
+bool Sphere::Hit(Ray& ray, float t_min, float t_max, Hit_Record& hit_record) 
 {
 	Vector3 oc = ray.Start() - center;
-	double a = ray.Direction().Dot(ray.Direction());
-	double b = oc.Dot(ray.Direction());
-	double c = oc.Dot(oc)-radius*radius;
+	float a = ray.Direction().Dot(ray.Direction());
+	float b = oc.Dot(ray.Direction());
+	float c = oc.Dot(oc)-radius*radius;
 
-	double discriminant = b * b - a * c;
+	float discriminant = b * b - a * c;
 	if (discriminant > 0) {
-		double temp = (-b - sqrt(b * b - a * c)) / a;
+		float temp = (-b - sqrt(b * b - a * c)) / a;
 		if (temp<t_max && temp >t_min) {
 			hit_record.t = temp;
 			hit_record.HitPoint = ray.Point(temp);
@@ -31,7 +31,7 @@ bool Sphere::Hit(Ray& ray, double t_min, double t_max, Hit_Record& hit_record)
 	return false;
 }
 
-bool Sphere::BoundingBox(double t0, double t1, AABB& aabb)
+bool Sphere::BoundingBox(float t0, float t1, AABB& aabb)
 {
 	Vector3 v1 = center - Vector3(radius, radius, radius);
 	Vector3 v2 = center + Vector3(radius, radius, radius);

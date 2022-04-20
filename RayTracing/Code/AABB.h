@@ -2,8 +2,8 @@
 #include "Vector3.h"
 #include "Ray.h"
 
-inline double ffmax(double a, double b) { return (a > b) ? a : b; }
-inline double ffmin(double a, double b) { return (a < b) ? a : b; }
+inline float ffmax(float a, float b) { return (a > b) ? a : b; }
+inline float ffmin(float a, float b) { return (a < b) ? a : b; }
 
 class AABB {
 public:
@@ -13,7 +13,7 @@ public:
 	AABB() {}
 	AABB(Vector3& a, Vector3& b) { _min = a; _max = b; }
 
-	bool Hit(Ray& ray, double tmin, double tmax);
+	bool Hit(Ray& ray, float tmin, float tmax);
 
 	AABB SurroundingBox(AABB& aabb);
 

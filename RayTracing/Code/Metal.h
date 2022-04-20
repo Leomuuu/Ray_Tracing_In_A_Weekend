@@ -5,9 +5,9 @@
 class Metal:public Material {
 public:
 	Vector3 albedo;
-	double fuzz;
+	float fuzz;
 
-	Metal(Vector3 a, double f) :albedo(a) {
+	Metal(Vector3 a, float f) :albedo(a) {
 		if (f < 1) fuzz = f;
 		else fuzz = 1;
 	}

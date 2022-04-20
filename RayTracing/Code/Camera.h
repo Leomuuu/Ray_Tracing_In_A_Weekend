@@ -12,10 +12,10 @@ public:
 
 
 	NormalCamera(Vector3 lookfrom, Vector3 lookat, Vector3 vup,
-		double vfov, double aspect);
+		float vfov, float aspect);
 
 
-	virtual Ray GetRay(double s, double t);
+	virtual Ray GetRay(float s, float t);
 
 
 };
@@ -28,14 +28,14 @@ public:
 	Vector3 horizontal;
 	Vector3 vertical;
 	Vector3 u, v, w;
-	double lens_radius;
+	float lens_radius;
 
 
 	DefocusBlurCamera(Vector3 lookfrom,Vector3 lookat,Vector3 vup,
-		double vfov,double aspect,double aperture,double focus_dist);
+		float vfov,float aspect,float aperture,float focus_dist);
 
 
-	virtual Ray GetRay(double s, double t) ;
+	virtual Ray GetRay(float s, float t) ;
 
 };
 

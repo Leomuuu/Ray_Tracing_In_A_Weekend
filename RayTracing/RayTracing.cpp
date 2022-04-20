@@ -26,7 +26,7 @@ Vector3 color(Ray r, HitableObject* world,int depth) {
 		Vector3 attenuation;
 		Vector3 emitted = rec.mat_ptr->Emitted(rec.u, rec.v, rec.HitPoint);
 		if (depth >0 && rec.mat_ptr->Scatter(r, rec, attenuation, scattered)) {
-			return emitted+attenuation * color(scattered, world, depth + 1);
+			return emitted+attenuation * color(scattered, world, depth - 1);
 		}
 		return emitted;
 		
@@ -36,6 +36,7 @@ Vector3 color(Ray r, HitableObject* world,int depth) {
 		float t = (unit_direction.Y() + 1) * 0.5;
 		return Vector3(1, 1, 1)* (1.0 - t) + Vector3(0.5, 0.7, 1.0) * t;*/
 		return Vector3(ZEROLIGHT, ZEROLIGHT, ZEROLIGHT);
+		/*return Vector3(1, 1, 1);*/
 	}
 }
 
@@ -52,10 +53,10 @@ int main()
 
 	int nx = 200;
 	int ny = 100;
-	int ns = 25;
+	int ns = 5;
 	f << "P3\n" << nx << " " << ny << "\n255\n";
 
-	HitableObject* List[20];
+	HitableObject* List[22];
 
 	Texture* checker = new Checker_Texture(new Constant_Texture(Vector3(0.2, 0.3, 0.1)),
 		new Constant_Texture(Vector3(0.9, 0.9, 0.9)));
@@ -91,38 +92,30 @@ int main()
 	List[16] = new Sphere(Vector3(0, -104, 1), 100, new Lambertian(checker5));
 	List[17] = new Sphere(Vector3(-1.2, 1.5, 0), 0.5, new Dielectric(0.9));*/
 
-	List[0] = new Triangle(Vector3(10, -5, 10), Vector3(-10, -5, 10), Vector3(10, -5, -1), new Lambertian(checker7));
-	List[1] = new Triangle(Vector3(-10, -5, 10),Vector3(-10, -5, -1), Vector3(10, -5, -1) , new Lambertian(checker7));
-	List[2] = new Triangle(Vector3(-10, -5, 10), Vector3(-10, 5, -1),Vector3(-10, -5, -1),new Lambertian(checker8));
-	List[3] = new Triangle(Vector3(-10, -5, 10), Vector3(-10, 5, 10), Vector3(-10, 5, -1), new Lambertian(checker8));
-	List[4] = new Triangle(Vector3(10, -5, 10),Vector3(10, -5, -1) ,Vector3(10, 5, 10) , new Lambertian(checker9));
-	List[5] = new Triangle(Vector3(10, -5, -1), Vector3(10, 5, -1),Vector3(10, 5, 10) , new Lambertian(checker9));
-	List[5] = new Triangle(Vector3(10, -5, -1), Vector3(10, 5, -1), Vector3(10, 5, 10), new Lambertian(checker9));
-	List[6] = new Triangle(Vector3(10, -5, 10), Vector3(10, 5, 10),Vector3(-10, -5, 10) , new Lambertian(checker10));
-	List[7] = new Triangle(Vector3(10, 5, 10),Vector3(-10, -5, 10) ,Vector3(-10, 5, 10), new Lambertian(checker10));
+	List[8] = new Triangle(Vector3(10, -5, 10), Vector3(-10, -5, 10), Vector3(-10, -5, 0), new Lambertian(checker10));
+	List[9] = new Triangle(Vector3(10, -5, 10),Vector3(10, -5, 0), Vector3(-10, -5, 0) , new Lambertian(checker10));
+	List[10] = new Triangle(Vector3(10, 5, 10), Vector3(-10, 5, 10), Vector3(-10, 5, 0), new Lambertian(checker10));
+	List[11] = new Triangle(Vector3(10, 5, 10), Vector3(10, 5, 0), Vector3(-10, 5, 0), new Lambertian(checker10));
 	
-	List[8] = new Sphere(Vector3(0, 10, 6), 3, new Diffuse_Light(new Constant_Texture(Vector3(1, 1, 1))));
-	List[9] = new Sphere(Vector3(-8, -3, 8), 1, new Diffuse_Light(new Constant_Texture(Vector3(1, 1, 1))));
+	List[4] = new Triangle(Vector3(10, -5, 10), Vector3(10, 5, 10),Vector3(-10, -5, 10),new Lambertian(checker10));
+	List[5] = new Triangle(Vector3(10, 5, 10), Vector3(-10, 5, 10), Vector3(-10, -5, 10), new Lambertian(checker10));
+	List[6] = new Triangle(Vector3(10, -5, 0), Vector3(10, 5, 0), Vector3(-10, -5, 0), new Lambertian(checker10));
+	List[7] = new Triangle(Vector3(10, 5, 0), Vector3(-10, 5, 0), Vector3(-10, -5, 0), new Lambertian(checker10));
+	
+	List[0] = new Triangle(Vector3(10, -5, 0), Vector3(10, -5, 10), Vector3(10, 5, 0), new Lambertian(checker10));
+	List[1] = new Triangle(Vector3(10, 5, 10), Vector3(10, -5, 10), Vector3(10, 5, 0), new Lambertian(checker10));
+	List[2] = new Triangle(Vector3(-10, 5, 10), Vector3(-10, -5, 10), Vector3(-10, 5, 0), new Lambertian(checker10));
+	List[3] = new Triangle(Vector3(-10, -5, 0), Vector3(-10, -5, 10), Vector3(-10, 5, 0), new Lambertian(checker10));
 
-	List[10] = new Sphere(Vector3(8, -3, 8), 1, new Lambertian(checker));
-	List[11] = new Sphere(Vector3(-5, -3, 8), 2, new Lambertian(checker5));
+	List[12] = new Cylinder(0, 7, 1, 5, 5, new Diffuse_Light(new Constant_Texture(Vector3(1,1,1))), new Diffuse_Light(new Constant_Texture(Vector3(1, 1, 1))));
+
 
 
 	HitableList* world = new HitableList();
-	world->AddHitables(List[0]);
-	world->AddHitables(List[1]);
-	world->AddHitables(List[2]);
-	world->AddHitables(List[3]);
-	world->AddHitables(List[4]);
-	world->AddHitables(List[5]);
-	world->AddHitables(List[6]);
-	world->AddHitables(List[7]);
+	for (int i = 0; i < 13; i++) {
+		world->AddHitables(List[i]);
+	}
 
-	world->AddHitables(List[8]);
-	world->AddHitables(List[9]);
-
-	world->AddHitables(List[10]);
-	world->AddHitables(List[11]);
 
 	//world->AddHitables(List[1]);
 	//world->AddHitables(List[2]);
@@ -137,13 +130,13 @@ int main()
 	//random_scene(world);
 
 	BVHNode* bvhroot = new BVHNode(world);
-
-	Vector3 lookfrom(0, 1, -1);
-	Vector3 lookat(0, 1, 0);
+	
+	Vector3 lookfrom(0, 0, 0);
+	Vector3 lookat(0, 0, 1);
 	/*NormalCamera camera(lookfrom, lookat, Vector3(0, 1, 0), 50,
-		double(nx) / double(ny));*/
+		float(nx) / float(ny));*/
 	DefocusBlurCamera camera(lookfrom, lookat,Vector3(0, 1, 0),90,
-		double(nx)/double(ny),0,(lookfrom-lookat).Length());
+		float(nx)/float(ny),0,(lookfrom-lookat).Length());
 
 
 
@@ -153,16 +146,16 @@ int main()
 
 			for (int s = 0; s < ns; s++) {
 				for (int z = 0; z < 4; z++) {
-					double u = double(double(i)+z*0.25 + RANDDOUBLE01/4) / double(nx);
-					double v = double(double(j)+z*0.25 + RANDDOUBLE01/4) / double(ny);
+					float u = float(float(i)+z*0.25 + RANDfloat01/4) / float(nx);
+					float v = float(float(j)+z*0.25 + RANDfloat01/4) / float(ny);
 					Ray r = camera.GetRay(u, v);
 					Vector3 p = r.Point(2);
 					//col = col + color(r, bvhroot, 50);
-					col = col + color(r, world, 50);
+					col = col + color(r, world, 20);
 				}
 			}
 
-			col = col / (double(ns)*4);
+			col = col / (float(ns)*4);
 			col = Vector3(sqrt(col.R()), sqrt(col.G()), sqrt(col.B()));
 
 			int ir = int(255.99 * col.R());
@@ -189,18 +182,18 @@ void random_scene(HitableList* world) {
 	int i = 1;
 	for (int a = -5; a < 5; a++) {
 		for (int b = -5; b < 5; b++) {
-			auto choose_mat = RANDDOUBLE01;
-			Vector3 center(a + 0.9 * RANDDOUBLE01, 0.2, b + 0.9 * RANDDOUBLE01);
+			auto choose_mat = RANDfloat01;
+			Vector3 center(a + 0.9 * RANDfloat01, 0.2, b + 0.9 * RANDfloat01);
 			if ((center - Vector3(4, 0.2, 0)).Length() > 0.9) {
 				if (choose_mat < 0.8) {
 					// diffuse		
 					world->AddHitables(new Sphere(center, 0.2,
-						new Lambertian(Vector3(RANDDOUBLE01 * RANDDOUBLE01, RANDDOUBLE01 * RANDDOUBLE01, RANDDOUBLE01 * RANDDOUBLE01))));
+						new Lambertian(Vector3(RANDfloat01 * RANDfloat01, RANDfloat01 * RANDfloat01, RANDfloat01 * RANDfloat01))));
 				}
 				else if (choose_mat < 0.95) {
 					// metal
 					world->AddHitables(new Sphere(center, 0.2,
-						new Metal(Vector3(0.5 * (1 + RANDDOUBLE01), 0.5 * (1 + RANDDOUBLE01), 0.5 * (1 + RANDDOUBLE01)), 0.5 * RANDDOUBLE01)));
+						new Metal(Vector3(0.5 * (1 + RANDfloat01), 0.5 * (1 + RANDfloat01), 0.5 * (1 + RANDfloat01)), 0.5 * RANDfloat01)));
 				}
 				else {
 					// glass

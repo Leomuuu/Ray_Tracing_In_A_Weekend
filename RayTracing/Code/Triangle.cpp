@@ -3,17 +3,17 @@
 
 
 
-bool Triangle::Hit(Ray& ray, double t_min, double t_max, Hit_Record& hit_record)
+bool Triangle::Hit(Ray& ray, float t_min, float t_max, Hit_Record& hit_record)
 {
 	Vector3 normal = ((point2 - point1).Cross(point3 - point1)).UnitVector();
 
-	double np1start = normal.Dot(point1-ray.Start());
-	double ndirection = normal.Dot(ray.Direction());
+	float np1start = normal.Dot(point1-ray.Start());
+	float ndirection = normal.Dot(ray.Direction());
 
 	if (abs(ndirection) <= 1e-20) return false;
 
 	//光线与平面相交
-	double temp = np1start / ndirection;
+	float temp = np1start / ndirection;
 
 	if (temp <t_min || temp >t_max)  return false;
 
@@ -42,7 +42,7 @@ bool Triangle::Hit(Ray& ray, double t_min, double t_max, Hit_Record& hit_record)
 	
 }
 
-bool Triangle::BoundingBox(double t0, double t1, AABB& aabb)
+bool Triangle::BoundingBox(float t0, float t1, AABB& aabb)
 {
 	Vector3 vmin(ffmin(ffmin(point1.X(),point2.X()),point3.X()),
 		ffmin(ffmin(point1.Y(), point2.Y()), point3.Y()),

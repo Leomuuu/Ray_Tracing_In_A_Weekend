@@ -1,10 +1,10 @@
 #include "HitableList.h"
 
-bool HitableList::Hit(Ray& ray, double t_min, double t_max, Hit_Record& hit_record)
+bool HitableList::Hit(Ray& ray, float t_min, float t_max, Hit_Record& hit_record)
 {
 	Hit_Record temphit;
 	bool hit_anything = false;
-	double closet_so_far = t_max;
+	float closet_so_far = t_max;
 	for (int i = 0; i < hitables.size(); ++i) {
 		if (hitables[i]->Hit(ray, t_min, closet_so_far, temphit)) {
 			hit_anything = true;
@@ -20,7 +20,7 @@ void HitableList::AddHitables(HitableObject* object)
 	hitables.push_back(object);
 }
 
-bool HitableList::BoundingBox(double t0, double t1, AABB& aabb)
+bool HitableList::BoundingBox(float t0, float t1, AABB& aabb)
 {
 	if (hitables.size() < 1) return false;
 

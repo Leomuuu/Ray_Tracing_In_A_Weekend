@@ -12,10 +12,10 @@ public:
 	HitableList(HitableList& hlist) {
 		hitables = hlist.hitables;
 	}
-	virtual bool Hit(Ray& ray, double t_min, double t_max,
+	virtual bool Hit(Ray& ray, float t_min, float t_max,
 		Hit_Record& hit_record)  override;
 	void AddHitables(HitableObject* object);
 
-	virtual bool BoundingBox(double t0, double t1, AABB& aabb)override;
+	virtual bool BoundingBox(float t0, float t1, AABB& aabb)override;
 
 };

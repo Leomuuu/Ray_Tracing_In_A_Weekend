@@ -10,8 +10,8 @@
 Vector3 Random_In_Unit_Disk() {
 	Vector3 p;
 	do {
-		double a = RANDDOUBLE01;
-		double b = RANDDOUBLE01;
+		float a = RANDfloat01;
+		float b = RANDfloat01;
 
 
 		p = Vector3(a, b, 0) * 2 - Vector3(1, 1, 0);
@@ -21,11 +21,11 @@ Vector3 Random_In_Unit_Disk() {
 }
 
 
-NormalCamera::NormalCamera(Vector3 lookfrom, Vector3 lookat, Vector3 vup, double vfov, double aspect)
+NormalCamera::NormalCamera(Vector3 lookfrom, Vector3 lookat, Vector3 vup, float vfov, float aspect)
 {
-	double theta = vfov * MYPI / 180;
-	double half_height = tan(theta / 2);
-	double half_width = aspect * half_height;
+	float theta = vfov * MYPI / 180;
+	float half_height = tan(theta / 2);
+	float half_width = aspect * half_height;
 
 	origin = lookfrom;
 	w = (lookfrom - lookat).UnitVector();
@@ -38,7 +38,7 @@ NormalCamera::NormalCamera(Vector3 lookfrom, Vector3 lookat, Vector3 vup, double
 }
 
 
-Ray NormalCamera::GetRay(double s, double t)
+Ray NormalCamera::GetRay(float s, float t)
 {
 	return Ray(origin, lower_left_corner + horizontal * s + vertical * t - origin);
 
@@ -46,13 +46,13 @@ Ray NormalCamera::GetRay(double s, double t)
 
 //vup 是向上的向量 用来得到摄像机的三个方向
 DefocusBlurCamera::DefocusBlurCamera(Vector3 lookfrom, Vector3 lookat, Vector3 vup,
-	double vfov, double aspect, double aperture, double focus_dist)
+	float vfov, float aspect, float aperture, float focus_dist)
 {
 	lens_radius = aperture / 2;
 	
-	double theta = vfov * MYPI / 180;
-	double half_height = tan(theta / 2);
-	double half_width = aspect * half_height;
+	float theta = vfov * MYPI / 180;
+	float half_height = tan(theta / 2);
+	float half_width = aspect * half_height;
 
 	origin = lookfrom;
 	w = (lookfrom - lookat).UnitVector();
@@ -64,7 +64,7 @@ DefocusBlurCamera::DefocusBlurCamera(Vector3 lookfrom, Vector3 lookat, Vector3 v
 	vertical = v * 2 * half_height*focus_dist;
 
 }
-Ray DefocusBlurCamera::GetRay(double s, double t)
+Ray DefocusBlurCamera::GetRay(float s, float t)
 {
 	Vector3 rd =  Random_In_Unit_Disk()*lens_radius ;
 	Vector3 offset = u*rd.X()+v*rd.Y();

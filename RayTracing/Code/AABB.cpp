@@ -1,10 +1,10 @@
 #include "AABB.h"
 
-bool AABB::Hit(Ray& ray, double tmin, double tmax)
+bool AABB::Hit(Ray& ray, float tmin, float tmax)
 {
 	for (int i = 0; i < 3; i++) {
-		double t1 = (_min[i] - ray.Start()[i]) / ray.Direction()[i];
-		double t2 = (_max[i] - ray.Start()[i]) / ray.Direction()[i];
+		float t1 = (_min[i] - ray.Start()[i]) / ray.Direction()[i];
+		float t2 = (_max[i] - ray.Start()[i]) / ray.Direction()[i];
 
 		tmin =ffmax(ffmin(t1, t2),tmin);
 		tmax =ffmin(ffmax(t1, t2),tmax);

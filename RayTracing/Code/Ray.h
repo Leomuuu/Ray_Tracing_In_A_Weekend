@@ -14,7 +14,7 @@ public:
 
 	inline Vector3 Start() { return startpoint; }
 	inline Vector3 Direction()  { return direction; }
-	inline Vector3 Point(double t) { return startpoint + direction * t; }
+	inline Vector3 Point(float t) { return startpoint + direction * t; }
 
 
 };

@@ -15,10 +15,10 @@ public:
 	Triangle(Vector3 p1, Vector3 p2, Vector3 p3, Material* m) :
 		point1(p1), point2(p2), point3(p3),material(m) {}
 
-	virtual bool Hit(Ray& ray, double t_min, double t_max,
+	virtual bool Hit(Ray& ray, float t_min, float t_max,
 		Hit_Record& hit_record)  override;
 
-	virtual bool BoundingBox(double t0, double t1, AABB& aabb) override;
+	virtual bool BoundingBox(float t0, float t1, AABB& aabb) override;
 
 
 };

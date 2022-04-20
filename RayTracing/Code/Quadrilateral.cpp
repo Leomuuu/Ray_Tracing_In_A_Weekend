@@ -1,11 +1,11 @@
 #include "Quadrilateral.h"
 
-bool Quadrilateral::Hit(Ray& ray, double t_min, double t_max, Hit_Record& hit_record)
+bool Quadrilateral::Hit(Ray& ray, float t_min, float t_max, Hit_Record& hit_record)
 {
 
 	bool hit_anything = false;
 
-	double t = t_max;
+	float t = t_max;
 	for (int i = 0; i < 4; i++) {
 		if (trilist[i].Hit(ray, t_min, t_max, hit_record)) {
 			t_max = hit_record.t;
@@ -17,7 +17,7 @@ bool Quadrilateral::Hit(Ray& ray, double t_min, double t_max, Hit_Record& hit_re
 
 }
 
-bool Quadrilateral::BoundingBox(double t0, double t1, AABB& aabb)
+bool Quadrilateral::BoundingBox(float t0, float t1, AABB& aabb)
 {
 	AABB tempbox;
 	bool flag=trilist[0].BoundingBox(t0, t1,tempbox);

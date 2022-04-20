@@ -13,7 +13,7 @@ public:
 	{
 		return false;
 	}
-	virtual Vector3 Emitted(double u, double v, Vector3& p) {
+	virtual Vector3 Emitted(float u, float v, Vector3& p) {
 		return emit->Value(u, v, p);
 	}
 

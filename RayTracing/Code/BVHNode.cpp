@@ -60,7 +60,7 @@ BVHNode::BVHNode(std::vector<HitableObject*>& vec, int start, int end)
 	box = box_left.SurroundingBox(box_right);
 }
 
-bool BVHNode::Hit(Ray& ray, double t_min, double t_max, Hit_Record& hit_record)
+bool BVHNode::Hit(Ray& ray, float t_min, float t_max, Hit_Record& hit_record)
 {
 	if (!box.Hit(ray, t_min, t_max))
 		return false;
@@ -71,7 +71,7 @@ bool BVHNode::Hit(Ray& ray, double t_min, double t_max, Hit_Record& hit_record)
 	return hit_left || hit_right;
 }
 
-bool BVHNode::BoundingBox(double t0, double t1, AABB& aabb)
+bool BVHNode::BoundingBox(float t0, float t1, AABB& aabb)
 {
 	aabb = box;
 	return true;

@@ -3,46 +3,45 @@
 class Vector3 {
 	
 private:
-	double a;
-	double b;
-	double c;
+	float a;
+	float b;
+	float c;
 
 
 public:	
-	Vector3():a(0),b(0),c(0) {}
-	Vector3(double first, double second, double third) 
-		: a(first), b(second), c(third) {
-	}
-	Vector3(const Vector3& vec) {
-		a = vec.X();
-		b = vec.Y();
-		c = vec.Z();
+	
+	Vector3() { a = b = c = 0; }
+	Vector3(float first, float second, float third) 
+		{ a = first; b = second; c = third;
 	}
 
-	inline double R() const { return a; }
-	inline double G() const { return b; }
-	inline double B() const { return c; }
-	inline double X() const { return a; }
-	inline double Y() const { return b; }
-	inline double Z() const { return c; }
+
+
+
+	inline float R() const { return a; }
+	inline float G() const { return b; }
+	inline float B() const { return c; }
+	inline float X() const { return a; }
+	inline float Y() const { return b; }
+	inline float Z() const { return c; }
 
 	Vector3 operator + (Vector3 v);
 	Vector3 operator - (Vector3 v);
 	Vector3 operator -();
-	Vector3 operator = (Vector3 v);
-	Vector3 operator * (double d);
+	Vector3& operator = (const Vector3& v);
+	Vector3 operator * (float d);
 	Vector3 operator * (Vector3 v);
-	Vector3 operator /(double d);
-	double operator [](int index);
+	Vector3 operator /(float d);
+	float operator [](int index);
 	bool operator ==(Vector3 v);
 	bool operator !=(Vector3 v);
 
 	//点乘
-	double Dot(Vector3 v);
+	float Dot(Vector3 v);
 	//叉乘
 	Vector3 Cross(Vector3 v);
 
-	double Length();
+	float Length();
 	//自身变为单位向量
 	Vector3 NormalNize();
 	//返回单位向量

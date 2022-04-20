@@ -5,18 +5,18 @@
 //折射介质
 class Dielectric :public Material {
 public:
-	double ref_idx;
+	float ref_idx;
 
-	Dielectric(double ri) :ref_idx(ri) {}
+	Dielectric(float ri) :ref_idx(ri) {}
 
 	virtual bool Scatter(Ray& ray_in, Hit_Record& rec, Vector3& attenuation, Ray& scattered) {
 		Vector3 outward_normal;
 		Vector3 reflected = Reflect(ray_in.Direction(), rec.NormalDirection);
-		double ni_over_nt;
+		float ni_over_nt;
 		attenuation = Vector3(1, 1, 1);
 		Vector3 refracted;
-		double reflect_prob;
-		double cosine;
+		float reflect_prob;
+		float cosine;
 		if (ray_in.Direction().Dot(rec.NormalDirection) > 0) {
 			outward_normal = -rec.NormalDirection;
 			ni_over_nt = ref_idx;
@@ -36,7 +36,7 @@ public:
 			scattered = Ray(rec.HitPoint, reflected);
 			reflect_prob = 1.0;
 		}
-		if (RANDDOUBLE01 < reflect_prob) {
+		if (RANDfloat01 < reflect_prob) {
 			scattered = Ray(rec.HitPoint, reflected);
 		}
 		else {
@@ -46,8 +46,8 @@ public:
 	}
 
 
-	double Schlick(double cosine, double ref_idx) {
-		double r0 = (1 - ref_idx) / (1 + ref_idx);
+	float Schlick(float cosine, float ref_idx) {
+		float r0 = (1 - ref_idx) / (1 + ref_idx);
 		r0 = r0 * r0;
 		return r0 + (1 - r0) * pow((1 - cosine), 5);
 	}
