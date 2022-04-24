@@ -7,8 +7,10 @@
 
 #define RANDfloat01  ((float)rand() / (RAND_MAX+1.0))  // [0.1)
 #define ZEROLIGHT 0
+#define MPI 3.1415926535897932384626
 
 struct  Hit_Record;
+class HitableObject;
 
 class Material {
 public:
