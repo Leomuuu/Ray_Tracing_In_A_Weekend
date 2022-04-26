@@ -36,6 +36,7 @@ Vector3 color(Ray r, HitableObject* world,int depth) {
 			
 			return ret+emitted;
 		}
+		
 		return emitted;
 		
 	}
@@ -44,7 +45,7 @@ Vector3 color(Ray r, HitableObject* world,int depth) {
 		float t = (unit_direction.Y() + 1) * 0.5;
 		return Vector3(1, 1, 1)* (1.0 - t) + Vector3(0.5, 0.7, 1.0) * t;*/
 		return Vector3(ZEROLIGHT, ZEROLIGHT, ZEROLIGHT);
-		/*return Vector3(1, 1, 1);*/
+		//return Vector3(1, 1, 1);
 	}
 }
 
@@ -55,30 +56,25 @@ int main()
 {
 
 	ofstream f;
-	f.open("test4.ppm");
+	f.open("test5.ppm");
 
 	srand(time(0));
 
-	int nx = 200;
+	int nx = 100;
 	int ny = 100;
 	int ns = 5;
 	f << "P3\n" << nx << " " << ny << "\n255\n";
 
 	HitableObject* List[22];
 
-	Texture* checker = new Checker_Texture(new Constant_Texture(Vector3(0.2, 0.3, 0.1)),
-		new Constant_Texture(Vector3(0.9, 0.9, 0.9)));
-	Texture* checker4 = new Checker_Texture(new Constant_Texture(Vector3(0.7, 0.2, 0.2)),
-		new Constant_Texture(Vector3(0.9, 0.9, 0.9)));
-	Texture* checker5 = new Checker_Texture(new Constant_Texture(Vector3(1, 0.84, 0)),
-		new Constant_Texture(Vector3(0.9, 0.9, 0.9)));
-	Texture* checker2 = new Constant_Texture(Vector3(0.1, 0.1, 0.5));
-	Texture* checker3 = new Constant_Texture(Vector3(0.2, 0.2, 0.8));
-	Texture* checker6 = new Constant_Texture(Vector3(0.33, 1, 0.62));
-	Texture* red = new Constant_Texture(Vector3(0.1, 0, 0));
-	Texture* green = new Constant_Texture(Vector3(0, 0.1, 0));
-	Texture* blue = new Constant_Texture(Vector3(0, 0, 0.1));
-	Texture* grey = new Constant_Texture(Vector3(0.1, 0.1, 0.1));
+	Texture* red = new Constant_Texture(Vector3(0.65, 0.05, 0.05));
+	Texture* green = new Constant_Texture(Vector3(0.12, 0.45, 0.15));
+	Texture* yellow = new Constant_Texture(Vector3(1, 0.84, 0));
+	Texture* white = new Constant_Texture(Vector3(0.73, 0.73, 0.73));
+	Texture* light = new Constant_Texture(Vector3(1, 1, 1));
+
+	Texture* checker = new Checker_Texture(white ,yellow);
+
 
 	/*List[1]= new Sphere(Vector3(2, 1.5, 1), 0.5, new Lambertian(checker));
 	List[2] = new Sphere(Vector3(1, 1.5, 1), 0.2, new Metal(Vector3(0.5, 0.2, 0.5), 0));
@@ -100,27 +96,37 @@ int main()
 	List[16] = new Sphere(Vector3(0, -104, 1), 100, new Lambertian(checker5));
 	List[17] = new Sphere(Vector3(-1.2, 1.5, 0), 0.5, new Dielectric(0.9));*/
 
-	List[0] = new Triangle(Vector3(10, -5, 0), Vector3(10, -5, 15), Vector3(10, 5, 0), new Lambertian(red));
-	List[1] = new Triangle(Vector3(10, 5, 15), Vector3(10, -5, 15), Vector3(10, 5, 0), new Lambertian(red));
-	List[2] = new Triangle(Vector3(-10, 5, 15), Vector3(-10, -5, 15), Vector3(-10, 5, 0), new Lambertian(red));
-	List[3] = new Triangle(Vector3(-10, -5, 0), Vector3(-10, -5, 15), Vector3(-10, 5, 0), new Lambertian(red));
+	//left
+	List[0] = new Triangle(Vector3(555, 0, 0), Vector3(555, 0, 555), Vector3(555, 555, 0), new Lambertian(green));
+	List[1] = new Triangle(Vector3(555, 555, 555), Vector3(555, 0, 555), Vector3(555, 555, 0), new Lambertian(green));
 	
-	List[4] = new Triangle(Vector3(10, -5, 15), Vector3(10, 5, 15),Vector3(-10, -5, 15),new Lambertian(grey));
-	List[5] = new Triangle(Vector3(10, 5, 15), Vector3(-10, 5, 15), Vector3(-10, -5, 15), new Lambertian(grey));
-	List[6] = new Triangle(Vector3(10, -5, 0), Vector3(10, 5, 0), Vector3(-10, -5, 0), new Lambertian(grey));
-	List[7] = new Triangle(Vector3(10, 5, 0), Vector3(-10, 5, 0), Vector3(-10, -5, 0), new Lambertian(grey));
-
-	List[8] = new Triangle(Vector3(10, -5, 15), Vector3(-10, -5, 15), Vector3(-10, -5, 0), new Lambertian(green));
-	List[9] = new Triangle(Vector3(10, -5, 15), Vector3(10, -5, 0), Vector3(-10, -5, 0), new Lambertian(green));
-	List[10] = new Triangle(Vector3(10, 5, 15), Vector3(-10, 5, 15), Vector3(-10, 5, 0), new Lambertian(green));
-	List[11] = new Triangle(Vector3(10, 5, 15), Vector3(10, 5, 0), Vector3(-10, 5, 0), new Lambertian(green));
+	//right
+	List[2] = new Triangle(Vector3(0, 0, 0), Vector3(0, 0, 555), Vector3(0, 555, 0), new Lambertian(red));
+	List[3] = new Triangle(Vector3(0, 555, 555), Vector3(0, 0, 555), Vector3(0, 555, 0), new Lambertian(red));
 	
-	List[12] = new Cylinder(0, 6, 1, 5, 5, new Diffuse_Light(new Constant_Texture(Vector3(1,1,1))), new Diffuse_Light(new Constant_Texture(Vector3(1, 1, 1))));
+	//top
+	List[4] = new Triangle(Vector3(0, 555, 0), Vector3(0, 555, 555),Vector3(555, 555, 0),new Lambertian(light));
+	List[5] = new Triangle(Vector3(555, 555, 555), Vector3(0, 555, 555), Vector3(555, 555, 0), new Lambertian(light));
+	
+	//bottom
+	List[6] = new Triangle(Vector3(0, 0, 0), Vector3(0, 0, 555), Vector3(555, 0, 0), new Lambertian(white));
+	List[7] = new Triangle(Vector3(555, 0, 555), Vector3(0, 0, 555), Vector3(555, 0, 0), new Lambertian(white));
 
-	List[13] = new Sphere(Vector3(7, 2, 10), 2, new Lambertian(checker6));
+	//far
+	List[8] = new Triangle(Vector3(0, 0, 555), Vector3(0, 555, 555), Vector3(555, 0, 555), new Lambertian(white));
+	List[9] = new Triangle(Vector3(555, 555, 555), Vector3(0, 555, 555), Vector3(555, 0, 555), new Lambertian(white));
+	//close
+	/*List[10] = new Triangle(Vector3(0, 0, 0), Vector3(0, 555, 0), Vector3(555, 0, 0), new Lambertian(white));
+	List[11] = new Triangle(Vector3(555, 555, 0), Vector3(0, 555, 0), Vector3(555, 0, 0), new Lambertian(white));*/
+
+	//light
+	List[10] = new Cylinder(280, 280, 65, 555, 555, new Diffuse_Light(white), new Diffuse_Light(white));
+
+	//left sphere
+	List[11] = new Sphere(Vector3(400, 100, 400), 70, new Lambertian(checker));
 
 	HitableList* world = new HitableList();
-	for (int i = 0; i < 14; i++) {
+	for (int i = 0; i < 12; i++) {
 		world->AddHitables(List[i]);
 	}
 
@@ -139,12 +145,12 @@ int main()
 
 	BVHNode* bvhroot = new BVHNode(world);
 	
-	Vector3 lookfrom(0, 0, 0);
-	Vector3 lookat(0, 0, 1);
-	/*NormalCamera camera(lookfrom, lookat, Vector3(0, 1, 0), 50,
+	Vector3 lookfrom(278, 278, -800);
+	Vector3 lookat(278, 278, 0);
+	/*NormalCamera camera(lookfrom, lookat, Vector3(0, 1, 0), 40,
 		float(nx) / float(ny));*/
-	DefocusBlurCamera camera(lookfrom, lookat,Vector3(0, 1, 0),90,
-		float(nx)/float(ny),0,(lookfrom-lookat).Length());
+	DefocusBlurCamera camera(lookfrom, lookat,Vector3(0, 1, 0),40,
+		float(nx)/float(ny),0,10);
 
 
 
