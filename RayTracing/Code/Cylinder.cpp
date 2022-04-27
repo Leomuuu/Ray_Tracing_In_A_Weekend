@@ -68,3 +68,28 @@ bool Cylinder::BoundingBox(float t0, float t1, AABB& aabb)
 	aabb = AABB(v1, v2);
 	return true;
 }
+
+float Cylinder::pdf_value(Vector3& o, Vector3& v)
+{
+	Hit_Record rec;
+	Ray r(o, v);
+	if (this->Hit(r, 0.001, FLT_MAX, rec)) {
+		float area = radius * radius * MPI;
+		float distance_squared = rec.t*rec.t*v.Length() * v.Length();
+		float cosine = fabs(v.Dot(rec.NormalDirection)) / v.Length();
+		return distance_squared / (cosine * area);
+	}
+	return 0;
+}
+
+Vector3 Cylinder::random(Vector3& o)
+{
+	float a = (RANDfloat01 - 0.5) * 2 * radius;
+	float b = (RANDfloat01 - 0.5) * 2 * radius;
+	while (a * a + b * b >= radius * radius) {
+		a = (RANDfloat01 - 0.5) * 2 * radius;
+		b = (RANDfloat01 - 0.5) * 2 * radius;
+	}
+	return Vector3(x+a, ymin , z+b) - o;
+
+}

@@ -13,8 +13,10 @@ public:
 	{
 		return false;
 	}
-	virtual Vector3 Emitted(float u, float v, Vector3& p) {
-		return emit->Value(u, v, p);
+	virtual Vector3 Emitted(Ray& ray, Hit_Record& rec,float u, float v, Vector3& p) {
+		/*if(rec.NormalDirection.Dot(ray.Direction())<0)*/
+			return emit->Value(u, v, p);
+		/*return Vector3(0, 0, 0);*/
 	}
 
 

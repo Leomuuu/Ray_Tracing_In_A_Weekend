@@ -12,9 +12,20 @@
 struct  Hit_Record;
 class HitableObject;
 
+
+
 class Material {
 public:
-	virtual bool Scatter(Ray& ray_in, Hit_Record& rec, Vector3& attenuation, Ray& scattered) { return false; };
+	virtual bool Scatter(Ray& ray_in, Hit_Record& rec, Vector3& attenuation, Ray& scattered, float &pdf) { 
+		return false; 
+	}
+	virtual float Scattering_pdf(Ray& ray_in, Hit_Record& rec,Ray& scattered) {
+		return 0;
+	}
+	virtual Vector3 Emitted(Ray& ray,Hit_Record&rec,float u, float v, Vector3& p) {
+		return Vector3(ZEROLIGHT, ZEROLIGHT, ZEROLIGHT);
+	}
+	
 	//反射
 	Vector3 Reflect(Vector3 v, Vector3 n) {
 		return v - n *(v.Dot(n)) * 2;
@@ -45,11 +56,16 @@ public:
 		}
 		else return false;
 	}
-	//发射光线
-	virtual Vector3 Emitted(float u, float v, Vector3& p) {
-		return Vector3(ZEROLIGHT, ZEROLIGHT, ZEROLIGHT);
+	
+	static Vector3 Random_Cosine_Direction() {
+		float r1 = RANDfloat01;
+		float r2 = RANDfloat01;
+		float z = sqrt(1 - r2);
+		float phi = 2 * MPI * r1;
+		float x = cos(phi) * 2 * sqrt(r2);
+		float y = sin(phi) * 2 * sqrt(r2);
+		return Vector3(x, y, z);
 	}
-
 
 
 };

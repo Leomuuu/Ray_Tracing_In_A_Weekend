@@ -22,4 +22,11 @@ public:
 		Hit_Record& hit_record)  = 0;
 
 	virtual bool BoundingBox(float t0, float t1, AABB& aabb) = 0;
+	virtual float pdf_value(Vector3& o, Vector3& v) {
+		return 0;
+	}
+	virtual Vector3 random(Vector3& o) {
+		return Vector3(1, 0, 0);
+	}
+
 };

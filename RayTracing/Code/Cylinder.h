@@ -24,4 +24,8 @@ public:
 		Hit_Record& hit_record)  override;
 
 	virtual bool BoundingBox(float t0, float t1, AABB& aabb) override;
+
+	virtual float pdf_value(Vector3& o, Vector3& v);
+	virtual Vector3 random(Vector3& o);
+	
 };

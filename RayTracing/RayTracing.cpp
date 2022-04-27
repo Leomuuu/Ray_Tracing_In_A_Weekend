@@ -16,29 +16,42 @@
 #include "Code/Texture.h"
 #include "Code/Diffuse_Light.h"
 #include "Code/BVHNode.h"
+#include "Code/PDF.h"
 
 
 
 void random_scene(HitableList* world);
 
-Vector3 color(Ray r, HitableObject* world,int depth) {
+
+
+Vector3 color(Ray r, HitableObject* world,HitableObject* light,int depth) {
 	Hit_Record rec;
 
 	if (world->Hit(r, 0.001,FLT_MAX , rec)) {
 		Ray scattered;
 		Vector3 attenuation;
-		Vector3 direclight;
-		Vector3 emitted = rec.mat_ptr->Emitted(rec.u, rec.v, rec.HitPoint);
-		if (depth >0 && rec.mat_ptr->Scatter(r, rec, attenuation, scattered)) {
-			Vector3 ret;
-			
-			ret =  attenuation * color(scattered, world, depth - 1);		
-			
-			return ret+emitted;
+		Vector3 emitted = rec.mat_ptr->Emitted(r,rec,rec.u, rec.v, rec.HitPoint);
+		float pdf;
+		Vector3 albedo;
+		if (depth >0 && rec.mat_ptr->Scatter(r, rec, albedo, scattered,pdf)) {	
+			//if (RANDfloat01 <= -1)
+			//	//计算间接光照
+			//	return emitted + albedo *
+			//	color(scattered, world, light, depth - 1);
+			/*else {*/
+				//对光源采样
+				Cosine_PDF cosp(rec.NormalDirection);
+				Hitable_PDF hitp(light, rec.HitPoint);
+				Mixture_PDF mixp(&hitp, &cosp,0.5);
+				scattered = Ray(rec.HitPoint, mixp.Generate());
+				pdf = mixp.Value(scattered.Direction());
+				//乘 材质的散射pdf 除 随机生成的方向的pdf
+				return  emitted + albedo *
+					rec.mat_ptr->Scattering_pdf(r, rec, scattered) *
+					color(scattered, world, light, depth - 1) / pdf;
+			/*}*/
 		}
-		
 		return emitted;
-		
 	}
 	else {
 		/*Vector3 unit_direction = r.Direction().UnitVector();
@@ -56,13 +69,13 @@ int main()
 {
 
 	ofstream f;
-	f.open("test5.ppm");
+	f.open("test6.ppm");
 
 	srand(time(0));
 
-	int nx = 100;
-	int ny = 100;
-	int ns = 5;
+	int nx = 500;
+	int ny = 500;
+	int ns = 25;
 	f << "P3\n" << nx << " " << ny << "\n255\n";
 
 	HitableObject* List[22];
@@ -70,6 +83,7 @@ int main()
 	Texture* red = new Constant_Texture(Vector3(0.65, 0.05, 0.05));
 	Texture* green = new Constant_Texture(Vector3(0.12, 0.45, 0.15));
 	Texture* yellow = new Constant_Texture(Vector3(1, 0.84, 0));
+	Texture* blue= new Constant_Texture(Vector3(0.05,0.05 ,0.65 ));
 	Texture* white = new Constant_Texture(Vector3(0.73, 0.73, 0.73));
 	Texture* light = new Constant_Texture(Vector3(1, 1, 1));
 
@@ -120,13 +134,16 @@ int main()
 	List[11] = new Triangle(Vector3(555, 555, 0), Vector3(0, 555, 0), Vector3(555, 0, 0), new Lambertian(white));*/
 
 	//light
-	List[10] = new Cylinder(280, 280, 65, 555, 555, new Diffuse_Light(white), new Diffuse_Light(white));
+	List[10] = new Cylinder(280, 280, 65, 554.9999, 554.9999, new Diffuse_Light(light), new Diffuse_Light(light));
 
 	//left sphere
-	List[11] = new Sphere(Vector3(400, 100, 400), 70, new Lambertian(checker));
+	List[11] = new Sphere(Vector3(400, 100, 400), 70, new Lambertian(yellow));
+
+	//right sphere
+	List[12]= new Sphere(Vector3(200, 90, 200), 80, new Lambertian(blue));
 
 	HitableList* world = new HitableList();
-	for (int i = 0; i < 12; i++) {
+	for (int i = 0; i < 13; i++) {
 		world->AddHitables(List[i]);
 	}
 
@@ -150,7 +167,7 @@ int main()
 	/*NormalCamera camera(lookfrom, lookat, Vector3(0, 1, 0), 40,
 		float(nx) / float(ny));*/
 	DefocusBlurCamera camera(lookfrom, lookat,Vector3(0, 1, 0),40,
-		float(nx)/float(ny),0,10);
+		float(nx)/float(ny),0,5);
 
 
 
@@ -165,7 +182,7 @@ int main()
 					Ray r = camera.GetRay(u, v);
 					Vector3 p = r.Point(2);
 					//col = col + color(r, bvhroot, 10);
-					col = col + color(r, world, 10);
+					col = col + color(r, world,List[10] ,10);
 				}
 			}
 

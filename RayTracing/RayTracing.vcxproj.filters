@@ -137,5 +137,11 @@
     <ClInclude Include="Code\BVHNode.h">
       <Filter>头文件\Hitables</Filter>
     </ClInclude>
+    <ClInclude Include="Code\ONB.h">
+      <Filter>头文件\Ray</Filter>
+    </ClInclude>
+    <ClInclude Include="Code\PDF.h">
+      <Filter>头文件\Ray</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
