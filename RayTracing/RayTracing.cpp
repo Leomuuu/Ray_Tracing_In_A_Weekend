@@ -69,8 +69,8 @@ int main()
 
 	srand(time(0));
 
-	int nx = 100;
-	int ny = 100;
+	int nx = 500;
+	int ny = 500;
 	int ns = 25;
 	f << "P3\n" << nx << " " << ny << "\n255\n";
 
@@ -139,7 +139,7 @@ int main()
 	List[12]= new Sphere(Vector3(300, 90, 200), 80, new Lambertian(blue));
 
 	//right sphere
-	List[13] = new Sphere(Vector3(120, 90, 100), 80, new Dielectric(1));
+	List[13] = new Sphere(Vector3(180, 90, 100), 100, new Dielectric(0.8));
 
 	HitableList* world = new HitableList();
 	for (int i = 0; i < 14; i++) {

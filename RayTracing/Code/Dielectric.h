@@ -9,11 +9,12 @@ public:
 
 	Dielectric(float ri) :ref_idx(ri) {}
 
-	virtual bool Scatter(Ray& ray_in, Hit_Record& rec, Vector3& attenuation, Ray& scattered) {
+	virtual bool Scatter(Ray& ray_in, Hit_Record& rec, Scatter_Record&srec) {
 		Vector3 outward_normal;
 		Vector3 reflected = Reflect(ray_in.Direction(), rec.NormalDirection);
 		float ni_over_nt;
-		attenuation = Vector3(1, 1, 1);
+		srec.attenuation = Vector3(1, 1, 1);
+		srec.is_specular = true;
 		Vector3 refracted;
 		float reflect_prob;
 		float cosine;
@@ -33,14 +34,14 @@ public:
 			reflect_prob = Schlick(cosine, ref_idx);
 		}
 		else {
-			scattered = Ray(rec.HitPoint, reflected);
+			srec.specular_ray = Ray(rec.HitPoint, reflected);
 			reflect_prob = 1.0;
 		}
 		if (RANDfloat01 < reflect_prob) {
-			scattered = Ray(rec.HitPoint, reflected);
+			srec.specular_ray = Ray(rec.HitPoint, reflected);
 		}
 		else {
-			scattered = Ray(rec.HitPoint, refracted);
+			srec.specular_ray = Ray(rec.HitPoint, refracted);
 		}
 		return true;
 	}
