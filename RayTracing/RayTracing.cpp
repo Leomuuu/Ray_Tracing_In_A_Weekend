@@ -28,28 +28,24 @@ Vector3 color(Ray r, HitableObject* world,HitableObject* light,int depth) {
 	Hit_Record rec;
 
 	if (world->Hit(r, 0.001,FLT_MAX , rec)) {
-		Ray scattered;
-		Vector3 attenuation;
 		Vector3 emitted = rec.mat_ptr->Emitted(r,rec,rec.u, rec.v, rec.HitPoint);
-		float pdf;
-		Vector3 albedo;
-		if (depth >0 && rec.mat_ptr->Scatter(r, rec, albedo, scattered,pdf)) {	
-			//if (RANDfloat01 <= -1)
-			//	//计算间接光照
-			//	return emitted + albedo *
-			//	color(scattered, world, light, depth - 1);
-			/*else {*/
-				//对光源采样
+		Scatter_Record srec;
+		if (depth >0 && rec.mat_ptr->Scatter(r, rec, srec)) {		
+			if (srec.is_specular) {
+				return srec.attenuation *
+					color(srec.specular_ray, world, light, depth - 1);
+			}
+			else {
 				Cosine_PDF cosp(rec.NormalDirection);
 				Hitable_PDF hitp(light, rec.HitPoint);
-				Mixture_PDF mixp(&hitp, &cosp,0.5);
-				scattered = Ray(rec.HitPoint, mixp.Generate());
-				pdf = mixp.Value(scattered.Direction());
+				Mixture_PDF mixp(&hitp, &cosp, 0.5);
+				Ray scattered = Ray(rec.HitPoint, mixp.Generate());
+				float pdf = mixp.Value(scattered.Direction());
 				//乘 材质的散射pdf 除 随机生成的方向的pdf
-				return  emitted + albedo *
+				return  emitted + srec.attenuation *
 					rec.mat_ptr->Scattering_pdf(r, rec, scattered) *
 					color(scattered, world, light, depth - 1) / pdf;
-			/*}*/
+			}
 		}
 		return emitted;
 	}
@@ -69,12 +65,12 @@ int main()
 {
 
 	ofstream f;
-	f.open("test6.ppm");
+	f.open("test9.ppm");
 
 	srand(time(0));
 
-	int nx = 500;
-	int ny = 500;
+	int nx = 100;
+	int ny = 100;
 	int ns = 25;
 	f << "P3\n" << nx << " " << ny << "\n255\n";
 
@@ -134,16 +130,19 @@ int main()
 	List[11] = new Triangle(Vector3(555, 555, 0), Vector3(0, 555, 0), Vector3(555, 0, 0), new Lambertian(white));*/
 
 	//light
-	List[10] = new Cylinder(280, 280, 65, 554.9999, 554.9999, new Diffuse_Light(light), new Diffuse_Light(light));
+	List[10] = new Cylinder(280, 280, 150, 554.9999, 554.9999, new Diffuse_Light(light), new Diffuse_Light(light));
 
 	//left sphere
-	List[11] = new Sphere(Vector3(400, 100, 400), 70, new Lambertian(yellow));
+	List[11] = new Sphere(Vector3(430, 120, 400), 100, new Metal(Vector3(1,1,1),0));
+
+	//mid sphere
+	List[12]= new Sphere(Vector3(300, 90, 200), 80, new Lambertian(blue));
 
 	//right sphere
-	List[12]= new Sphere(Vector3(200, 90, 200), 80, new Lambertian(blue));
+	List[13] = new Sphere(Vector3(120, 90, 100), 80, new Dielectric(1));
 
 	HitableList* world = new HitableList();
-	for (int i = 0; i < 13; i++) {
+	for (int i = 0; i < 14; i++) {
 		world->AddHitables(List[i]);
 	}
 
@@ -172,6 +171,7 @@ int main()
 
 
 	for (int j = ny - 1; j >= 0; j--) {
+	/*for (int j = 200; j >= 100; j--) {*/
 		for (int i = 0; i < nx; i++) {
 			Vector3 col(0, 0, 0);
 

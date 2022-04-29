@@ -11,12 +11,17 @@
 
 struct  Hit_Record;
 class HitableObject;
+class PDF;
 
-
+struct Scatter_Record {
+	Ray specular_ray;
+	bool is_specular;
+	Vector3 attenuation;
+};
 
 class Material {
 public:
-	virtual bool Scatter(Ray& ray_in, Hit_Record& rec, Vector3& attenuation, Ray& scattered, float &pdf) { 
+	virtual bool Scatter(Ray& ray_in, Hit_Record& rec,Scatter_Record& srec) { 
 		return false; 
 	}
 	virtual float Scattering_pdf(Ray& ray_in, Hit_Record& rec,Ray& scattered) {

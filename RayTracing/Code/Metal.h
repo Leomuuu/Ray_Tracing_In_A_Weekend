@@ -13,11 +13,13 @@ public:
 	}
 
 	//在小球体内随机一个折射向量，并的到削减值
-	virtual bool Scatter(Ray& ray_in, Hit_Record& rec, Vector3& attenuation, Ray& scattered) {
+	virtual bool Scatter(Ray& ray_in, Hit_Record& rec, Scatter_Record& srec) {
 		Vector3 reflected = Reflect(ray_in.Direction().UnitVector(), rec.NormalDirection);
-		scattered = Ray(rec.HitPoint, reflected+Random_in_unit_sphere()*fuzz);
-		attenuation = albedo;
-		return (scattered.Direction().Dot(rec.NormalDirection) > 0);
+		srec.is_specular = true;
+		srec.specular_ray = Ray(rec.HitPoint, reflected+Random_in_unit_sphere()*fuzz);
+		srec.attenuation = albedo;
+		//srec.pdf = 0;
+		return true;
 	}
 
 
