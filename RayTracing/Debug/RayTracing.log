@@ -1,4 +1,19 @@
-﻿  RayTracing.cpp
+﻿  Cylinder.cpp
+C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\Code\Material.h(42,11): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\Code\Material.h(43,11): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\Code\Material.h(44,11): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\Code\Material.h(50,12): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\Code\Material.h(56,22): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\Code\Material.h(66,12): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\Code\Material.h(67,12): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\Code\Material.h(69,13): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\Code\Cylinder.cpp(76,5): warning C4305: “参数”: 从“double”到“float”截断
+C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\Code\Cylinder.cpp(77,14): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\Code\Cylinder.cpp(134,10): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\Code\Cylinder.cpp(135,10): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\Code\Cylinder.cpp(140,22): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\Code\Cylinder.cpp(141,22): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+  RayTracing.cpp
 C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\Code\Material.h(42,11): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
 C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\Code\Material.h(43,11): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
 C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\Code\Material.h(44,11): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
@@ -10,13 +25,14 @@ C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\Code\Materi
 C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\Code\PDF.h(22,16): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
 C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\Code\Lambertian.h(34,17): warning C4244: “return”: 从“double”转换到“float”，可能丢失数据
 C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\Code\Dielectric.h(29,21): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
-C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\RayTracing.cpp(30,5): warning C4305: “参数”: 从“double”到“float”截断
-C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\RayTracing.cpp(70,12): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
-C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\RayTracing.cpp(79,62): warning C4305: “参数”: 从“double”到“float”截断
-C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\RayTracing.cpp(80,64): warning C4305: “参数”: 从“double”到“float”截断
-C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\RayTracing.cpp(81,59): warning C4305: “参数”: 从“double”到“float”截断
-C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\RayTracing.cpp(82,62): warning C4305: “参数”: 从“double”到“float”截断
-C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\RayTracing.cpp(83,64): warning C4305: “参数”: 从“double”到“float”截断
-C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\RayTracing.cpp(133,112): warning C4305: “参数”: 从“double”到“float”截断
-C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\RayTracing.cpp(142,71): warning C4305: “参数”: 从“double”到“float”截断
+C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\RayTracing.cpp(38,5): warning C4305: “参数”: 从“double”到“float”截断
+C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\RayTracing.cpp(78,12): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\RayTracing.cpp(87,62): warning C4305: “参数”: 从“double”到“float”截断
+C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\RayTracing.cpp(88,64): warning C4305: “参数”: 从“double”到“float”截断
+C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\RayTracing.cpp(89,59): warning C4305: “参数”: 从“double”到“float”截断
+C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\RayTracing.cpp(90,62): warning C4305: “参数”: 从“double”到“float”截断
+C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\RayTracing.cpp(91,64): warning C4305: “参数”: 从“double”到“float”截断
+C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\RayTracing.cpp(93,65): warning C4305: “参数”: 从“double”到“float”截断
+C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\RayTracing.cpp(143,112): warning C4305: “参数”: 从“double”到“float”截断
+  正在生成代码...
   RayTracing.vcxproj -> C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\Debug\RayTracing.exe

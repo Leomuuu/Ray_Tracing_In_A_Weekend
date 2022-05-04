@@ -82,14 +82,63 @@ float Cylinder::pdf_value(Vector3& o, Vector3& v)
 	return 0;
 }
 
+//随机采样
+//Vector3 Cylinder::random(Vector3& o)
+//{
+//	float a = (RANDfloat01 - 0.5) * 2 * radius;
+//	float b = (RANDfloat01 - 0.5) * 2 * radius;
+//	while (a * a + b * b >= radius * radius) {
+//		a = (RANDfloat01 - 0.5) * 2 * radius;
+//		b = (RANDfloat01 - 0.5) * 2 * radius;
+//	}
+//	return Vector3(x+a, ymin , z+b) - o;
+//
+//}
+
+//均匀采样
+//Vector3 Cylinder::random(Vector3& o)
+//{
+//	//以xsample ysample为间隔
+//	float xsample = 2;
+//	float ysample = 2;
+//	float dx = radius / xsample;
+//	float dy = radius / ysample;
+//
+//	int xx = int((RANDfloat01 - 0.5) * 2 * xsample);
+//	int yy = int((RANDfloat01 - 0.5) * 2 * ysample);
+//
+//	float a = float(xx) * dx + (xx>0)?(dx / 2):(-dx/2);
+//	float b = float(yy) * dy + (yy>0)?(dy / 2):(-dy/2);
+//
+//	while (a * a + b * b >= radius * radius) {
+//		xx = int((RANDfloat01 - 0.5) * 2 * xsample);
+//		yy = int((RANDfloat01 - 0.5) * 2 * ysample);
+//		a = float(xx) * dx + (xx > 0) ? (dx / 2) : (-dx / 2);
+//		b = float(yy) * dy + (yy > 0) ? (dy / 2) : (-dy / 2);
+//	}
+//	return Vector3(x + a, ymin, z + b) - o;
+//}
+
+//蓝噪
 Vector3 Cylinder::random(Vector3& o)
 {
-	float a = (RANDfloat01 - 0.5) * 2 * radius;
-	float b = (RANDfloat01 - 0.5) * 2 * radius;
-	while (a * a + b * b >= radius * radius) {
-		a = (RANDfloat01 - 0.5) * 2 * radius;
-		b = (RANDfloat01 - 0.5) * 2 * radius;
-	}
-	return Vector3(x+a, ymin , z+b) - o;
+	//以xsample ysample为间隔
+	float xsample = 10;
+	float ysample = 10;
+	float dx = radius / xsample;
+	float dy = radius / ysample;
 
+	int xx = int((RANDfloat01 - 0.5) * 2 * xsample);
+	int yy = int((RANDfloat01 - 0.5) * 2 * ysample);
+
+	float a = float(xx) * dx + RANDfloat01*((xx>0)?dx:-dx);
+	float b = float(yy) * dy + RANDfloat01*((yy>0)?dy:-dy);
+
+	while (a * a + b * b >= radius * radius) {
+		xx = int((RANDfloat01 - 0.5) * 2 * xsample);
+		yy = int((RANDfloat01 - 0.5) * 2 * ysample);
+		a = float(xx) * dx + RANDfloat01 * ((xx > 0) ? dx : -dx);
+		b = float(yy) * dy + RANDfloat01 * ((yy > 0) ? dy : -dy);
+	}
+	return Vector3(x + a, ymin, z + b) - o;
 }

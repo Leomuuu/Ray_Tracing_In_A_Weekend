@@ -22,7 +22,15 @@
 
 void random_scene(HitableList* world);
 
+//处理NaN
+inline Vector3 DeNaN(const Vector3& vec) {
+	Vector3 temp = vec;
+	if (!(vec.a == vec.a)) temp.a = 0;
+	if (!(vec.b == vec.b)) temp.b = 0;
+	if (!(vec.c == vec.c)) temp.c = 0;
 
+	return temp;
+}
 
 Vector3 color(Ray r, HitableObject* world,HitableObject* light,int depth) {
 	Hit_Record rec;
@@ -65,7 +73,7 @@ int main()
 {
 
 	ofstream f;
-	f.open("test9.ppm");
+	f.open("../Pic/test15.ppm");
 
 	srand(time(0));
 
@@ -82,6 +90,8 @@ int main()
 	Texture* blue= new Constant_Texture(Vector3(0.05,0.05 ,0.65 ));
 	Texture* white = new Constant_Texture(Vector3(0.73, 0.73, 0.73));
 	Texture* light = new Constant_Texture(Vector3(1, 1, 1));
+	Texture* SeaGreen = new Constant_Texture(Vector3(0.33, 1, 0.623));
+	Texture* SkyBlue = new Constant_Texture(Vector3(0, 0.75, 1));
 
 	Texture* checker = new Checker_Texture(white ,yellow);
 
@@ -132,17 +142,27 @@ int main()
 	//light
 	List[10] = new Cylinder(280, 280, 150, 554.9999, 554.9999, new Diffuse_Light(light), new Diffuse_Light(light));
 
-	//left sphere
-	List[11] = new Sphere(Vector3(430, 120, 400), 100, new Metal(Vector3(1,1,1),0));
+	////left sphere
+	//List[11] = new Sphere(Vector3(430, 120, 400), 100, new Metal(Vector3(1,1,1),0));
 
-	//mid sphere
-	List[12]= new Sphere(Vector3(300, 90, 200), 80, new Lambertian(blue));
+	////mid sphere
+	//List[12]= new Sphere(Vector3(300, 90, 200), 80, new Lambertian(blue));
+	//
+	////right sphere
+	//List[13] = new Sphere(Vector3(180, 90, 80), 100, new Dielectric(0.8));
 
-	//right sphere
-	List[13] = new Sphere(Vector3(180, 90, 100), 100, new Dielectric(0.8));
+	//left box
+	List[11] = new Quadrilateral(Vector3(530, 280, 300), Vector3(430, 220, 200),
+		Vector3(330, 280, 300), Vector3(430, 20, 300),
+		new Lambertian(SkyBlue));
+
+	//right box
+	List[12] = new Quadrilateral(Vector3(292, 52, 142), Vector3(153, 42, 100),
+		Vector3(43, 72, 435), Vector3(222, 164, 188),
+		new Lambertian(SeaGreen));
 
 	HitableList* world = new HitableList();
-	for (int i = 0; i < 14; i++) {
+	for (int i = 0; i < 13; i++) {
 		world->AddHitables(List[i]);
 	}
 
@@ -171,7 +191,7 @@ int main()
 
 
 	for (int j = ny - 1; j >= 0; j--) {
-	/*for (int j = 200; j >= 100; j--) {*/
+	/*for (int j = 0; j <=ny-1; j++) {*/
 		for (int i = 0; i < nx; i++) {
 			Vector3 col(0, 0, 0);
 
@@ -182,7 +202,7 @@ int main()
 					Ray r = camera.GetRay(u, v);
 					Vector3 p = r.Point(2);
 					//col = col + color(r, bvhroot, 10);
-					col = col + color(r, world,List[10] ,10);
+					col = col + DeNaN(color(r, world,List[10] ,5));
 				}
 			}
 

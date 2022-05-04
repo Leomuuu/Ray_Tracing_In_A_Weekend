@@ -2,7 +2,7 @@
 
 class Vector3 {
 	
-private:
+public:
 	float a;
 	float b;
 	float c;
