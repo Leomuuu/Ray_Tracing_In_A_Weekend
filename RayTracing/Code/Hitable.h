@@ -2,6 +2,7 @@
 #include "Ray.h"
 #include "Material.h"
 #include "AABB.h"
+#include <float.h>
 
 class Material;
 
@@ -27,6 +28,9 @@ public:
 	}
 	virtual Vector3 random(Vector3& o) {
 		return Vector3(1, 0, 0);
+	}
+	virtual float getarea() {
+		return 0;
 	}
 
 };

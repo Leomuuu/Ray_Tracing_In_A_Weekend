@@ -55,3 +55,35 @@ bool Triangle::BoundingBox(float t0, float t1, AABB& aabb)
 	aabb = AABB(vmin, vmax);
 	return true;
 }
+
+float Triangle::pdf_value(Vector3& o, Vector3& v)
+{
+	Hit_Record rec;
+	Ray r(o, v);
+	if (this->Hit(r, 0.001, FLT_MAX, rec)) {
+		float area = getarea();
+		float distance_squared = rec.t * rec.t * v.Length() * v.Length();
+		float cosine = fabs(v.Dot(rec.NormalDirection)) / v.Length();
+		return distance_squared / (cosine * area);
+	}
+	return 0;
+}
+
+Vector3 Triangle::random(Vector3& o)
+{
+	float u1 = RANDfloat01;
+	float u2 = RANDfloat01;
+
+	Vector3 p = point1 * (1 - sqrt(u1)) + point2 * sqrt(u1) * (1 - u2) + point3 * sqrt(u1) * (u2);
+
+	return p - o;
+}
+
+float Triangle::getarea()
+{
+	float a = (point1 - point2).Length();
+	float b = (point2 - point3).Length();
+	float c = (point3 - point1).Length();
+	float p = (a + b + c) / 2;
+	return sqrt(p * (p - a) * (p - b) * (p - c));
+}

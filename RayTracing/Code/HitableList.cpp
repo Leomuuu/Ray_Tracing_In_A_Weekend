@@ -39,3 +39,40 @@ bool HitableList::BoundingBox(float t0, float t1, AABB& aabb)
 	return true;
 
 }
+float HitableList::pdf_value(Vector3& o, Vector3& v)
+{
+	/*Hit_Record rec;
+	Ray r(o, v);
+
+	if (this->Hit(r, 0.001, FLT_MAX, rec)) {
+
+		float area = 0;
+		for (int i = 0; i < hitables.size(); ++i) {
+			area += hitables[i]->getarea();
+		}
+		area /= 2;
+
+		float distance_squared = rec.t * rec.t * v.Length() * v.Length();
+		float cosine = fabs(v.Dot(rec.NormalDirection)) / v.Length();
+		return distance_squared / (cosine * area);
+	}
+
+	return 0;*/
+
+	float sum = 0;
+
+	for (int i = 0; i < hitables.size(); ++i) {
+		sum += hitables[i]->pdf_value(o, v);
+	}
+	sum /= hitables.size();
+
+	return sum;
+}
+
+Vector3 HitableList::random(Vector3& o)
+{
+	float samplehitable = RANDfloat01;
+	samplehitable *= hitables.size();
+	int sampleindex = int(samplehitable);
+	return hitables[sampleindex]->random(o);
+}

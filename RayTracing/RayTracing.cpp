@@ -25,9 +25,13 @@ void random_scene(HitableList* world);
 //处理NaN
 inline Vector3 DeNaN(const Vector3& vec) {
 	Vector3 temp = vec;
-	if (!(vec.a == vec.a)) temp.a = 0;
-	if (!(vec.b == vec.b)) temp.b = 0;
-	if (!(vec.c == vec.c)) temp.c = 0;
+	if (isnan(vec.a)) temp.a = 0;
+	if (isnan(vec.b)) temp.b = 0;
+	if (isnan(vec.c)) temp.c = 0;
+
+	if (isinf(vec.a)) temp.a = 1;
+	if (isinf(vec.b)) temp.b = 1;
+	if (isinf(vec.c)) temp.c = 1;
 
 	return temp;
 }
@@ -49,7 +53,6 @@ Vector3 color(Ray r, HitableObject* world,HitableObject* light,int depth) {
 				Mixture_PDF mixp(&hitp, &cosp, 0.5);
 				Ray scattered = Ray(rec.HitPoint, mixp.Generate());
 				float pdf = mixp.Value(scattered.Direction());
-				//乘 材质的散射pdf 除 随机生成的方向的pdf
 				return  emitted + srec.attenuation *
 					rec.mat_ptr->Scattering_pdf(r, rec, scattered) *
 					color(scattered, world, light, depth - 1) / pdf;
@@ -58,11 +61,7 @@ Vector3 color(Ray r, HitableObject* world,HitableObject* light,int depth) {
 		return emitted;
 	}
 	else {
-		/*Vector3 unit_direction = r.Direction().UnitVector();
-		float t = (unit_direction.Y() + 1) * 0.5;
-		return Vector3(1, 1, 1)* (1.0 - t) + Vector3(0.5, 0.7, 1.0) * t;*/
 		return Vector3(ZEROLIGHT, ZEROLIGHT, ZEROLIGHT);
-		//return Vector3(1, 1, 1);
 	}
 }
 
@@ -73,16 +72,14 @@ int main()
 {
 
 	ofstream f;
-	f.open("../Pic/test15.ppm");
+	f.open("../Pic/test17 .ppm");
 
 	srand(time(0));
 
-	int nx = 500;
-	int ny = 500;
+	int nx = 100;
+	int ny = 100;
 	int ns = 25;
-	f << "P3\n" << nx << " " << ny << "\n255\n";
-
-	HitableObject* List[22];
+	f << "P3\n" << nx << " " << ny << "\n"<<255<<"\n";
 
 	Texture* red = new Constant_Texture(Vector3(0.65, 0.05, 0.05));
 	Texture* green = new Constant_Texture(Vector3(0.12, 0.45, 0.15));
@@ -95,26 +92,7 @@ int main()
 
 	Texture* checker = new Checker_Texture(white ,yellow);
 
-
-	/*List[1]= new Sphere(Vector3(2, 1.5, 1), 0.5, new Lambertian(checker));
-	List[2] = new Sphere(Vector3(1, 1.5, 1), 0.2, new Metal(Vector3(0.5, 0.2, 0.5), 0));
-
-	List[3] = new Triangle(Vector3(-0.5, 0.5, 1), Vector3(-1.5, 2, 2.5), Vector3(-2.5, 0.5, 1), new Lambertian(checker6));
-	List[4] = new Triangle(Vector3(-0.5, 0.5, 1), Vector3(-1.2, 1, 1), Vector3(-1.5, 2, 2.5), new Lambertian(checker8));
-
-	List[5] = new Quadrilateral(Vector3(-0.5, 0.5, 1), Vector3(-1.5, 2, 2.5), Vector3(-2.5, 0.5, 1), Vector3(-1.2, 1, 1),
-		new Lambertian(checker6));
-
-	List[10] = new Cylinder(2, 0, 0.2, -1.1, -1.1, new Diffuse_Light(new Constant_Texture(Vector3(1, 1, 1))),
-		new Diffuse_Light(new Constant_Texture(Vector3(1, 1, 1))));
-	List[11] = new Cylinder(0, 1, 1, -1.5, -0.5, new Lambertian(checker2), new Lambertian(checker3));
-
-	List[12]= new Sphere(Vector3(0, 3.5, 1), 1.5, new Diffuse_Light(new Constant_Texture(Vector3(1, 1, 1))));
-	List[13] = new Sphere(Vector3(3, 0, 1), 1, new Metal(Vector3(0.5, 0.5, 0.5), 0));
-	List[14] = new Sphere(Vector3(2, -1, 0), 0.3, new Diffuse_Light(new Constant_Texture(Vector3(1, 1, 1))));
-	List[15] = new Sphere(Vector3(-3, -1, 1), 1, new Lambertian(checker4));
-	List[16] = new Sphere(Vector3(0, -104, 1), 100, new Lambertian(checker5));
-	List[17] = new Sphere(Vector3(-1.2, 1.5, 0), 0.5, new Dielectric(0.9));*/
+	HitableObject* List[40];
 
 	//left
 	List[0] = new Triangle(Vector3(555, 0, 0), Vector3(555, 0, 555), Vector3(555, 555, 0), new Lambertian(green));
@@ -139,52 +117,54 @@ int main()
 	/*List[10] = new Triangle(Vector3(0, 0, 0), Vector3(0, 555, 0), Vector3(555, 0, 0), new Lambertian(white));
 	List[11] = new Triangle(Vector3(555, 555, 0), Vector3(0, 555, 0), Vector3(555, 0, 0), new Lambertian(white));*/
 
+	//left sphere
+	List[10] = new Sphere(Vector3(430, 120, 400), 100, new Metal(Vector3(1,1,1),0));
+
+	//mid sphere
+	List[11]= new Sphere(Vector3(300, 90, 200), 80, new Lambertian(SkyBlue));
+	
+	//right sphere
+	List[12] = new Sphere(Vector3(180, 90, 80), 100, new Dielectric(0.8));
+
+	////left box
+	//List[11] = new Quadrilateral(Vector3(530, 280, 300), Vector3(430, 220, 200),
+	//	Vector3(330, 280, 300), Vector3(430, 20, 300),
+	//	new Lambertian(SkyBlue));
+
+	////right box
+	//List[12] = new Quadrilateral(Vector3(292, 52, 142), Vector3(153, 42, 100),
+	//	Vector3(43, 72, 435), Vector3(222, 164, 188),
+	//	new Lambertian(SeaGreen));
+
 	//light
-	List[10] = new Cylinder(280, 280, 150, 554.9999, 554.9999, new Diffuse_Light(light), new Diffuse_Light(light));
-
-	////left sphere
-	//List[11] = new Sphere(Vector3(430, 120, 400), 100, new Metal(Vector3(1,1,1),0));
-
-	////mid sphere
-	//List[12]= new Sphere(Vector3(300, 90, 200), 80, new Lambertian(blue));
-	//
-	////right sphere
-	//List[13] = new Sphere(Vector3(180, 90, 80), 100, new Dielectric(0.8));
-
-	//left box
-	List[11] = new Quadrilateral(Vector3(530, 280, 300), Vector3(430, 220, 200),
-		Vector3(330, 280, 300), Vector3(430, 20, 300),
-		new Lambertian(SkyBlue));
-
-	//right box
-	List[12] = new Quadrilateral(Vector3(292, 52, 142), Vector3(153, 42, 100),
-		Vector3(43, 72, 435), Vector3(222, 164, 188),
-		new Lambertian(SeaGreen));
+	List[13] = new Cylinder(280, 280, 150, 554.9999, 554.9999, new Diffuse_Light(light), new Diffuse_Light(light));
+	/*List[13] = new Triangle(Vector3(280, 483, 150), Vector3(180, 483, 380), Vector3(380, 483, 380),
+		new Diffuse_Light(light));
+	List[14] = new Triangle(Vector3(280, 403, 400), Vector3(180, 483, 380), Vector3(380, 483, 380),
+		new Diffuse_Light(light));
+	List[15] = new Triangle(Vector3(280, 483, 150), Vector3(280, 403, 400), Vector3(380, 483, 380),
+		new Diffuse_Light(light));
+	List[16] = new Triangle(Vector3(280, 483, 150), Vector3(180, 483, 380), Vector3(280, 403, 400),
+		new Diffuse_Light(light));*/
+	
 
 	HitableList* world = new HitableList();
+	HitableList* worldlight = new HitableList();
 	for (int i = 0; i < 13; i++) {
 		world->AddHitables(List[i]);
 	}
+	for (int i = 13; i < 14; i++) {
+		worldlight->AddHitables(List[i]);
+	}
+	worldlight->AddHitables(List[12]);
 
+	world->AddHitables(worldlight);
 
-	//world->AddHitables(List[1]);
-	//world->AddHitables(List[2]);
-	//world->AddHitables(List[5]);
-	//world->AddHitables(List[11]);
-	//world->AddHitables(List[12]);
-	//world->AddHitables(List[13]);
-	//world->AddHitables(List[10]);
-	//world->AddHitables(List[15]);
-	//world->AddHitables(List[16]);
-	//world->AddHitables(List[17]);
-	//random_scene(world);
-
-	BVHNode* bvhroot = new BVHNode(world);
+	//BVHNode* bvhroot = new BVHNode(world);
 	
 	Vector3 lookfrom(278, 278, -800);
 	Vector3 lookat(278, 278, 0);
-	/*NormalCamera camera(lookfrom, lookat, Vector3(0, 1, 0), 40,
-		float(nx) / float(ny));*/
+
 	DefocusBlurCamera camera(lookfrom, lookat,Vector3(0, 1, 0),40,
 		float(nx)/float(ny),0,5);
 
@@ -202,7 +182,7 @@ int main()
 					Ray r = camera.GetRay(u, v);
 					Vector3 p = r.Point(2);
 					//col = col + color(r, bvhroot, 10);
-					col = col + DeNaN(color(r, world,List[10] ,5));
+					col = col + DeNaN(color(r, world,worldlight,5));
 				}
 			}
 
@@ -216,13 +196,8 @@ int main()
 			cout << j <<" "<<i<<endl;
 
 			f << ir << " " << ig << " " << ib << "\n";
-
-
 		}
-		
 	}
-
-
 	f.close();
 }
 
