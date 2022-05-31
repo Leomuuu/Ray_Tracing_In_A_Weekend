@@ -21,4 +21,5 @@ public:
 	virtual float pdf_value(Vector3& o, Vector3& v);
 	virtual Vector3 random(Vector3& o);
 	virtual float getarea();
+	//Vector3 random_to_sphere();
 };

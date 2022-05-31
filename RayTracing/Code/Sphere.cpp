@@ -43,7 +43,7 @@ float Sphere::pdf_value(Vector3& o, Vector3& v)
 	Hit_Record rec;
 	Ray r(o, v);
 	if (this->Hit(r, 0.001, FLT_MAX, rec)) {
-		float area = getarea()/2;
+		float area = getarea()*2;
 		float distance_squared = rec.t * rec.t * v.Length() * v.Length();
 		float cosine = fabs(v.Dot(rec.NormalDirection)) / v.Length();
 		return distance_squared / (cosine * area);
@@ -59,7 +59,7 @@ Vector3 Sphere::random(Vector3& o)
 	float theta = acos(1-2*e1);
 	float phi = 2 * MPI * e2;
 
-	return Vector3(radius*sin(theta)*cos(phi), radius*sin(theta)*sin(phi), radius*cos(theta));
+	return center + Vector3(radius*sin(theta)*cos(phi), radius*sin(theta)*sin(phi), radius*cos(theta))-o;
 }
 
 float Sphere::getarea()

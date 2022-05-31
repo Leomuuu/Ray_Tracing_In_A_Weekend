@@ -72,12 +72,12 @@ int main()
 {
 
 	ofstream f;
-	f.open("../Pic/test17 .ppm");
+	f.open("../Pic/test20.ppm");
 
 	srand(time(0));
 
-	int nx = 100;
-	int ny = 100;
+	int nx = 200;
+	int ny = 200;
 	int ns = 25;
 	f << "P3\n" << nx << " " << ny << "\n"<<255<<"\n";
 
@@ -137,7 +137,9 @@ int main()
 	//	new Lambertian(SeaGreen));
 
 	//light
+	// 
 	List[13] = new Cylinder(280, 280, 150, 554.9999, 554.9999, new Diffuse_Light(light), new Diffuse_Light(light));
+	//List[13] = new Sphere(Vector3(280, 420, 280), 80, new Diffuse_Light(light));
 	/*List[13] = new Triangle(Vector3(280, 483, 150), Vector3(180, 483, 380), Vector3(380, 483, 380),
 		new Diffuse_Light(light));
 	List[14] = new Triangle(Vector3(280, 403, 400), Vector3(180, 483, 380), Vector3(380, 483, 380),
@@ -156,7 +158,7 @@ int main()
 	for (int i = 13; i < 14; i++) {
 		worldlight->AddHitables(List[i]);
 	}
-	worldlight->AddHitables(List[12]);
+	//worldlight->AddHitables(List[12]);
 
 	world->AddHitables(worldlight);
 

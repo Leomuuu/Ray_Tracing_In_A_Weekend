@@ -20,5 +20,5 @@ C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\RayTracing.
 C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\RayTracing.cpp(88,64): warning C4305: “参数”: 从“double”到“float”截断
 C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\RayTracing.cpp(90,65): warning C4305: “参数”: 从“double”到“float”截断
 C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\RayTracing.cpp(127,70): warning C4305: “参数”: 从“double”到“float”截断
-C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\RayTracing.cpp(140,112): warning C4305: “参数”: 从“double”到“float”截断
+C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\RayTracing.cpp(141,112): warning C4305: “参数”: 从“double”到“float”截断
   RayTracing.vcxproj -> C:\Users\MU\Desktop\图形绘制\Ray_Tracing_In_A_Weekend\RayTracing\Debug\RayTracing.exe
