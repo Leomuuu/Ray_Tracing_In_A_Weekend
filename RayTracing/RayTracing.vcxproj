@@ -175,6 +175,7 @@
     <ClInclude Include="Code\Lambertian.h" />
     <ClInclude Include="Code\Material.h" />
     <ClInclude Include="Code\Metal.h" />
+    <ClInclude Include="Code\Microfacet.h" />
     <ClInclude Include="Code\ONB.h" />
     <ClInclude Include="Code\PDF.h" />
     <ClInclude Include="Code\Quadrilateral.h" />

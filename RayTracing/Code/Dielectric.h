@@ -15,6 +15,7 @@ public:
 		float ni_over_nt;
 		srec.attenuation = Vector3(1, 1, 1);
 		srec.is_specular = true;
+		srec.is_microfacet = false;
 		Vector3 refracted;
 		float reflect_prob;
 		float cosine;

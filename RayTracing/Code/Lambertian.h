@@ -23,6 +23,7 @@ public:
 		/*pdf = uvw.w().Dot(scattered.Direction()) / MPI;*/
 
 		srec.is_specular = false;
+		srec.is_microfacet = false;
 		srec.attenuation = albedo->Value(rec.u, rec.v, rec.HitPoint);
 		//srec.pdf =new Cosine_PDF(rec.NormalDirection);
 		return true;
@@ -34,7 +35,6 @@ public:
 		return cosine / MPI;
 	}
 
-	
 
 
 };

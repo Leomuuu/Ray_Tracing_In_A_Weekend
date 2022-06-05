@@ -16,7 +16,9 @@ class PDF;
 struct Scatter_Record {
 	Ray specular_ray;
 	bool is_specular;
+	bool is_microfacet;
 	Vector3 attenuation;
+
 };
 
 class Material {
@@ -26,6 +28,9 @@ public:
 	}
 	virtual float Scattering_pdf(Ray& ray_in, Hit_Record& rec,Ray& scattered) {
 		return 0;
+	}
+	virtual Vector3 Diffuse_Scattering_pdf(Ray& ray_in, Hit_Record& rec, Ray& scattered) {
+		return Vector3(0,0,0);
 	}
 	virtual Vector3 Emitted(Ray& ray,Hit_Record&rec,float u, float v, Vector3& p) {
 		return Vector3(ZEROLIGHT, ZEROLIGHT, ZEROLIGHT);

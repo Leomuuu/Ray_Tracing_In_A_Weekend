@@ -143,5 +143,8 @@
     <ClInclude Include="Code\PDF.h">
       <Filter>头文件\Ray</Filter>
     </ClInclude>
+    <ClInclude Include="Code\Microfacet.h">
+      <Filter>头文件\Material</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
